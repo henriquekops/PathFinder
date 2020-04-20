@@ -16,7 +16,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="BR"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-11-openjdk-amd64/lib"/>
-    <property name="sun.java.command" value="/home/henrique/Documentos/pucrs/PathFinder/path-finder/target/surefire/surefirebooter18365158692830860503.jar /home/henrique/Documentos/pucrs/PathFinder/path-finder/target/surefire 2020-04-19T21-00-00_156-jvmRun1 surefire14855041337981990106tmp surefire_07261281505448533532tmp"/>
+    <property name="sun.java.command" value="/home/henrique/Documentos/pucrs/PathFinder/path-finder/target/surefire/surefirebooter15718237042936690909.jar /home/henrique/Documentos/pucrs/PathFinder/path-finder/target/surefire 2020-04-19T21-14-21_858-jvmRun1 surefire3702260679697137494tmp surefire_015801618022723124418tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/henrique/Documentos/pucrs/PathFinder/path-finder/target/test-classes:/home/henrique/Documentos/pucrs/PathFinder/path-finder/target/classes:/home/henrique/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/henrique/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -32,7 +32,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="/home/henrique/Documentos/pucrs/PathFinder/path-finder/target/surefire/surefirebooter18365158692830860503.jar"/>
+    <property name="surefire.real.class.path" value="/home/henrique/Documentos/pucrs/PathFinder/path-finder/target/surefire/surefirebooter15718237042936690909.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="11.0.6+10-post-Ubuntu-1ubuntu118.04.1"/>
     <property name="user.name" value="henrique"/>
@@ -58,7 +58,7 @@
     <property name="java.class.version" value="55.0"/>
   </properties>
   <testcase name="testHeuristicFunction" classname="algorithms.GeneticAlgorithmTest" time="0"/>
-  <testcase name="testElitismAlgorithm" classname="algorithms.GeneticAlgorithmTest" time="0"/>
+  <testcase name="testElitismAlgorithm" classname="algorithms.GeneticAlgorithmTest" time="0.001"/>
   <testcase name="testFindPath" classname="algorithms.GeneticAlgorithmTest" time="0"/>
   <testcase name="testCrossoverAlgorithm" classname="algorithms.GeneticAlgorithmTest" time="0"/>
   <testcase name="testTournamentAlgorithm" classname="algorithms.GeneticAlgorithmTest" time="0"/>
