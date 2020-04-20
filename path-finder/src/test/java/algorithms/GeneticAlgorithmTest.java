@@ -16,7 +16,7 @@ public class GeneticAlgorithmTest {
     public void testFindPath()
     {
         String[][] maze = new String[10][10];
-        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm();
+        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(0,0,0);
         assertEquals(geneticAlgorithm.findPath(maze), maze);
     }
 
@@ -26,7 +26,7 @@ public class GeneticAlgorithmTest {
     @Test
     public void testHeuristicFunction()
     {
-        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm();
+        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(0,0,0);
         assertEquals(geneticAlgorithm.heuristicFunction(0), 0);
     }
 
@@ -37,7 +37,7 @@ public class GeneticAlgorithmTest {
     public void testElitismAlgorithm()
     {
         String[][] population = new String[10][10];
-        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm();
+        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(0,0,0);
         assertEquals(geneticAlgorithm.elitismAlgorithm(population), 0);
     }
 
@@ -48,7 +48,7 @@ public class GeneticAlgorithmTest {
     public void testTournamentAlgorithm()
     {
         int[] everyAgentScore = new int[10];
-        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm();
+        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(0,0,0);
         assertEquals(geneticAlgorithm.tournamentAlgorithm(everyAgentScore), 0);
     }
 
@@ -59,7 +59,7 @@ public class GeneticAlgorithmTest {
     public void testCrossoverAlgorithm()
     {
         String[][] population = new String[10][10];
-        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm();
+        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(0,0,0);
         assertEquals(geneticAlgorithm.crossoverAlgorithm(population), population);
     }
 }

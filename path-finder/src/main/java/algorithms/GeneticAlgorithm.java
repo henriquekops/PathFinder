@@ -1,5 +1,8 @@
 package algorithms;
 
+// External dependencies
+import java.util.Random;
+
 /***
  * Genetic algorithm class
  */
@@ -15,10 +18,29 @@ public class GeneticAlgorithm {
      */
 
     /**
-     * GeneticAlgorithm class constructor
+     * Java default variables
      */
-    public GeneticAlgorithm() {
-        System.out.println("Not implemented yet :(");
+    private Random randomizer;
+
+    /**
+     * Genetic cycle variables
+     */
+    private int numAgents;
+    private int numAgentGeneticLoad;
+    private int numGenerations;
+
+    /***
+     * Genetic class algorithm constructor
+     *
+     * @param numAgents : Number of agents to use for path finding
+     * @param numGenerations : Number of generations (cycles) to loop
+     * @param numPossiblePaths : Number of maze's free cells for an agent to walk
+     */
+    public GeneticAlgorithm(int numAgents, int numGenerations, int numPossiblePaths) {
+        this.randomizer = new Random();
+        this.numAgents = numAgents;
+        this.numAgentGeneticLoad = numPossiblePaths;
+        this.numGenerations = numGenerations;
     }
 
     /**
@@ -68,7 +90,7 @@ public class GeneticAlgorithm {
      * @return Intermediate agent population generated
      */
     public String[][] crossoverAlgorithm(String[][] population) {
-        System.out.println("Not implemented yet");
+        System.out.println("Not implemented yet :(");
         return population;
     }
 
