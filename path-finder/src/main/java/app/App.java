@@ -23,5 +23,35 @@ public class App
         };
         GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(3, 5, 3);
         char[][] solution = geneticAlgorithm.findPath(maze);
+
+        String path = ""; //passado lá em cima no "expected input"
+
+        setMatrix(path);
+    }
+
+    public static void setMatrix(String path){
+        try {
+            BufferedReader file = new BufferedReader(new FileReader(path));
+
+            int contLine = 0;
+
+            while (file.ready()) {
+                if(contLine != 0){
+                    String line = file.readLine();
+                    for(int i=0; i<sizeMatrix; i++){
+                        matrix[contLine][i] = line.substring(i,i+1);
+                    }
+                }else{
+                    sizeMatrix = Integer.parseInt(file.readLine());
+                    matrix = new String[sizeMatrix][sizeMatrix];
+                }
+                contLine++;
+            }
+
+            file.close();
+
+        }catch(Exception e){
+            System.out.println("Cannot read the file.");
+        }
     }
 }
