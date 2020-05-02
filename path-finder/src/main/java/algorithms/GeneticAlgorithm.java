@@ -1,6 +1,7 @@
 package algorithms;
 
 // built-in dependencies
+import java.sql.SQLOutput;
 import java.util.Random;
 import java.util.List;
 import java.util.Arrays;
@@ -69,9 +70,13 @@ public class GeneticAlgorithm {
         // genetic cycle
         System.out.println("\n//// Genetic algorithm Execution ////");
         for (int generation = 0; generation < this.numGenerations; generation++) {
+
             // print
             System.out.println("//// Generation: " + (generation+1));
             showPopulation(this.originalPopulation, this.everyAgentScores);
+
+            // heuristic
+            heuristicFunction(maze);
 
             // elitism
             int firstBornAgent = elitismAlgorithm(this.everyAgentScores);
@@ -100,12 +105,107 @@ public class GeneticAlgorithm {
 
     /**
      * Applies the heuristic function for generate fit score
-     * @param agent Agent's identifier to recover its maze's solution
-     * @return Score given to parametrized agent
+     * @param maze Current maze to solve
      */
-    public int heuristicFunction(int agent) {
-        System.out.println("Not implemented yet :(");
-        return 0;
+    public void heuristicFunction(char[][] maze) { // TODO: Unit test
+        char[] agentPathInMaze;
+
+        for (int agent = 0; agent < this.numAgents; agent++) {
+            agentPathInMaze = sanitizeAgentGeneticLoad(agent, maze);
+            showPath(agent, agentPathInMaze);
+            //this.everyAgentScores[agent] = some calculation over agentPathInMaze
+        }
+        System.out.println("");
+    }
+
+    /**
+     *
+     * @param agent Agent's identifier to recover maze's path information
+     * @param maze Current maze to solve
+     * @return Agent maze's path info
+     */
+    public char[] sanitizeAgentGeneticLoad(int agent, char[][] maze) {
+        int[] agentCurrentPosition = new int[] {0, 0};
+        int[] agentNewPosition;
+        int mazeSize = maze.length;
+
+        char[] agentPathInMaze = new char[this.numAgentGeneticLoad];
+
+        for (int gene = 0; gene < this.numAgentGeneticLoad; gene++) {
+            agentNewPosition = movementMapping(agent, gene, agentCurrentPosition);
+            agentCurrentPosition = validatePosition(agentCurrentPosition, agentNewPosition, mazeSize);
+            agentPathInMaze[gene] = maze[agentCurrentPosition[0]][agentCurrentPosition[1]];
+        }
+        return agentPathInMaze;
+    }
+
+    /**
+     * Map agent's movements to maze's positions
+     * @param agent Agent index (population line)
+     * @param gene Agent movement (population column)
+     * @param agentCurrentPosition Current position of the agent in maze
+     * @return Array containing mapped movements as maze's positions
+     */
+    public int[] movementMapping(int agent, int gene, int[] agentCurrentPosition) { ;
+
+        int[] newAgentPosition;
+        int mazeLine = agentCurrentPosition[0];
+        int mazeCol = agentCurrentPosition[1];
+
+        String agentMove = this.originalPopulation[agent][gene];
+
+        switch (agentMove) {
+            case "N":
+                mazeLine -= 1;
+                break;
+            case "S":
+                mazeLine += 1;
+                break;
+            case "E":
+                mazeCol += 1;
+                break;
+            case "W":
+                mazeCol -= 1;
+                break;
+            case "NE":
+                mazeLine -= 1;
+                mazeCol += 1;
+                break;
+            case "NW":
+                mazeLine -= 1;
+                mazeCol -= 1;
+                break;
+            case "SE":
+                mazeLine += 1;
+                mazeCol += 1;
+                break;
+            case "SW":
+                mazeLine += 1;
+                mazeCol -= 1;
+                break;
+        }
+
+        newAgentPosition = new int[]{mazeLine, mazeCol};
+        return newAgentPosition;
+    }
+
+    /**
+     *
+     * @param agentCurrentPosition Current agent's position in maze
+     * @param agentNewPosition New possible agent's position in maze
+     * @param mazeSize Parametrized maze's size
+     * @return Valid agent's position in maze
+     */
+    public int[] validatePosition(int[] agentCurrentPosition, int[] agentNewPosition, int mazeSize) {
+        int newLine = agentNewPosition[0];
+        int newCol = agentNewPosition[1];
+
+        if (newLine < 0 || newLine >= mazeSize || newCol < 0 || newCol >= mazeSize) {
+            return agentCurrentPosition;
+        }
+        else{
+            return agentNewPosition;
+        }
     }
 
     /**
@@ -228,6 +328,21 @@ public class GeneticAlgorithm {
             // ... and solution score :)
             System.out.println("| Fit score: " + everyAgentScores[agent]);
         }
-        System.out.println("\n");
+        System.out.println("");
+    }
+
+    /**
+     * Show current agent's path in maze
+     * @param agent Agent's identifier
+     * @param path Path made by agent
+     */
+    private void showPath(int agent, char[] path) {
+        System.out.print("[Agent " + (agent+1) + "] PATH: [ ");
+
+        // show every object in path
+        for (char c: path) {
+            System.out.print(c + " ");
+        }
+        System.out.println("]");
     }
 }
