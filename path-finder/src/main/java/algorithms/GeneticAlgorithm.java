@@ -264,31 +264,15 @@ public class GeneticAlgorithm {
      * @param child Child index to receive crossed genes
      */
     public void crossoverAlgorithm(String[] fatherGeneticLoad, String[] motherGeneticLoad, int child) {
-        // crossover variables
-        int crossPoint = this.numAgentGeneticLoad / 2;
-        int geneOrder = this.randomizer.nextInt(1);
 
-        // crossover randomization
-        for (int gene = 0; gene < this.numAgentGeneticLoad; gene++) {
+        for (int gene = 0; gene < this.numAgentGeneticLoad; gene ++ ) {
+            int mask = this.randomizer.nextInt(1);
 
-            // randomize father -> mother
-            if (geneOrder == 1) {
-                if (gene < crossPoint) {
-                    this.intermediatePopulation[child][gene] = fatherGeneticLoad[gene];
-                }
-                else {
-                    this.intermediatePopulation[child][gene] = motherGeneticLoad[gene];
-                }
+            if (mask == 0) {
+                this.intermediatePopulation[child][gene] = fatherGeneticLoad[gene];
             }
-
-            // randomized mother -> father
-            else {
-                if (gene < crossPoint) {
-                    this.intermediatePopulation[child][gene] = motherGeneticLoad[gene];
-                }
-                else {
-                    this.intermediatePopulation[child][gene] = fatherGeneticLoad[gene];
-                }
+            else if (mask == 1) {
+                this.intermediatePopulation[child][gene] = motherGeneticLoad[gene];
             }
         }
     }
