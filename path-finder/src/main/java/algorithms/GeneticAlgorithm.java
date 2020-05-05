@@ -87,8 +87,10 @@ public class GeneticAlgorithm {
 
             // crossover
             for (int child = 1; child < this.numAgents; child++) {
-                int father = tournamentAlgorithm(this.everyAgentScores);
-                int mother = tournamentAlgorithm(this.everyAgentScores);
+
+                int[] fAndM = tournamentAlgorithm();
+                int father = fAndM[0];
+                int mother = fAndM[1];
 
                 String[] fatherGeneticLoad = Arrays.copyOf(this.originalPopulation[father], this.numAgentGeneticLoad);
                 String[] motherGeneticLoad = Arrays.copyOf(this.originalPopulation[mother], this.numAgentGeneticLoad);
@@ -228,11 +230,31 @@ public class GeneticAlgorithm {
     }
 
     /**
+     * Selects two agents: father and mother
+     * @return father and mother agents
+     */
+    public int[] tournamentAlgorithm() {
+        // List of available agent's indexes
+        List<Integer> availableAgents = IntStream.rangeClosed(0, this.numAgents-1)
+                .boxed()
+                .collect(Collectors.toList());
+
+        // Agent selection without duplication
+        int fatherIdx = TournamentAlgorithm();
+        int fatherValue = availableAgents.remove(fatherIdx);
+
+        int motherIdx = TournamentAlgorithm();
+        int motherValue = availableAgents.remove(motherIdx);
+
+        int[] ret = {fatherValue, motherValue};
+        return ret;
+    }
+
+    /**
      * Selects an agent through tournament algorithm (best between two randomized fits)
-     * @param everyAgentScores Every agent's scores to apply the algorithm
      * @return Best fit agent
      */
-    public int tournamentAlgorithm(int[] everyAgentScores) {
+    private int TournamentAlgorithm() {
         // List of available agent's indexes
         List<Integer> availableAgents = IntStream.rangeClosed(0, this.numAgents-1)
                 .boxed()
@@ -246,8 +268,8 @@ public class GeneticAlgorithm {
         int secondAgent = availableAgents.remove(secondAgentIdx);
 
         // Agent scores comparison
-        int firstAgentScore = everyAgentScores[firstAgent];
-        int secondAgentScore = everyAgentScores[secondAgent];
+        int firstAgentScore = this.everyAgentScores[firstAgent];
+        int secondAgentScore = this.everyAgentScores[secondAgent];
 
         if (firstAgentScore > secondAgentScore) {
             return firstAgent;
