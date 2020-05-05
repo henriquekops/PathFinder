@@ -3,19 +3,25 @@ package app;
 // project dependencies
 import algorithms.GeneticAlgorithm;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 /**
  * Main application class
  */
-public class App 
-{
+public class App {
     /*
     NOTES:
       Expected input:
         $ java main -p {--path} ~/UserX/... -g {--generations} 100 -s {--solutions} 5 [--debug]
      */
 
+    private static int sizeMatrix;
+    private static String[][] matrix;
+
     public static void main( String[] args )
     {
+
         char[][] maze = {
                 {'E', '0', '1'},
                 {'1', '0', '1'},
@@ -23,5 +29,36 @@ public class App
         };
         GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(3, 5, 3);
         char[][] solution = geneticAlgorithm.findPath(maze);
+
+        String path = ""; //passado lá em cima no "expected input"
+        sizeMatrix = 0;
+
+        setMatrix(path);
+    }
+
+    public static void setMatrix(String path){
+        try {
+            BufferedReader file = new BufferedReader(new FileReader(path));
+
+            int contLine = 0;
+
+            while (file.ready()) {
+                if(contLine != 0){
+                    String line = file.readLine();
+                    for(int i=0; i<sizeMatrix; i++){
+                        matrix[contLine][i] = line.substring(i,i+1);
+                    }
+                }else{
+                    sizeMatrix = Integer.parseInt(file.readLine());
+                    matrix = new String[sizeMatrix][sizeMatrix];
+                }
+                contLine++;
+            }
+
+            file.close();
+
+        }catch(Exception e){
+            System.out.println("Cannot read the file.");
+        }
     }
 }
