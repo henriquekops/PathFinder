@@ -1,7 +1,6 @@
 package algorithms;
 
 // built-in dependencies
-import java.sql.SQLOutput;
 import java.util.Random;
 import java.util.List;
 import java.util.Arrays;
@@ -42,10 +41,9 @@ public class GeneticAlgorithm {
 
     /***
      * Genetic class algorithm constructor
-     *
-     * @param numAgents : Number of agents to use for path finding
-     * @param numGenerations : Number of generations (cycles) to loop
-     * @param numPossiblePaths : Number of maze's free cells for an agent to walk
+     * @param numAgents Number of agents to use for path finding
+     * @param numGenerations Number of generations (cycles) to loop
+     * @param numPossiblePaths Number of maze's free cells for an agent to walk
      */
     public GeneticAlgorithm(int numAgents, int numGenerations, int numPossiblePaths) {
         this.randomizer = new Random();
@@ -63,7 +61,7 @@ public class GeneticAlgorithm {
      * @return Same maze from input but containing its solution
      */
     public char[][] findPath(char[][] maze) { // TODO: fix tournament duplication (multi-call)
-        // Start genetic cycle collections
+        // start genetic cycle collections
         Arrays.fill(this.everyAgentScores, 0); // NOTE: temporary
         startPopulation(this.originalPopulation);
 

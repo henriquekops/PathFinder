@@ -2,6 +2,7 @@ package app;
 
 // project dependencies
 import algorithms.GeneticAlgorithm;
+import algorithms.AStarAlgorithm;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -23,17 +24,25 @@ public class App {
     {
 
         char[][] maze = {
-                {'E', '0', '1'},
-                {'1', '0', '1'},
-                {'S', '1', '1'}
+                //0    1    2    3
+                {'E', '0', '0', '0'}, // 0
+                {'1', 'B', '1', '0'}, // 1
+                {'0', '0', '0', '0'}, // 2
+                {'1', 'B', 'S', '1'}  // 3
         };
-        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(3, 5, 3);
-        char[][] solution = geneticAlgorithm.findPath(maze);
+//        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(3, 5, 3);
+//        char[][] solution = geneticAlgorithm.findPath(maze);
 
-        String path = ""; //passado lá em cima no "expected input"
-        sizeMatrix = 0;
+        int[] in = new int[] {0,0};
+        int[] out = new int[] {3,2};
 
-        setMatrix(path);
+        AStarAlgorithm aStarAlgorithm = new AStarAlgorithm(in, out);
+        aStarAlgorithm.findPath(maze, 4);
+
+//        String path = ""; //passado lá em cima no "expected input"
+//        sizeMatrix = 0;
+
+//        setMatrix(path);
     }
 
     public static void setMatrix(String path){
