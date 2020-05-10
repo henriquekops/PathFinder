@@ -1,58 +1,75 @@
 package algorithms;
 
 // built-in dependencies
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.List;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 import java.util.stream.Collectors;
 
+// external dependencies
+import org.javatuples.Pair;
+
 /***
  * Genetic algorithm class
  */
-public class GeneticAlgorithm {
+public class GeneticAlgorithm { // TODO: review comments
 
-    /*
-    NOTES:
-      Agent movements:
-        N=up, S=down, E=right, W=left
-        NE=diagonal-up-right, NW=diagonal-up-left, SE=diagonal-down-right, SW=diagonal-down-left
-     */
+    // TODO: put in another file
+    private class Agent {
 
-    /**
-     * Java default variables
-     */
-    private final Random randomizer;
+        private int X;
+        private int Y;
+
+        private int identifier;
+        private int score;
+
+        private List<String> moves;
+
+        public Agent(int x, int y, int identifier) {
+            this.moves = new ArrayList<>();
+            this.identifier = identifier;
+            this.score = 0;
+            this.X = x;
+            this.Y = y;
+        }
+
+        public void setX(int x, int mazeSize) {
+            if (x > 0 && x < mazeSize) {
+                X = x;
+            }
+        }
+
+        public void setY(int y, int mazeSize) {
+            if (y > 0 && y < mazeSize ) {
+                Y = y;
+            }
+        }
+    }
 
     /**
      * Genetic cycle variables
      */
     private final int numAgents;
-    private final int numAgentGeneticLoad;
+    private final int numAgentMoves;
     private final int numGenerations;
 
     /**
      * Genetic cycle collections
      */
     private final String[] possibleMoves = {"N", "S", "E", "W", "NE", "NW", "SE", "SW"};
-    private String[][] originalPopulation;
-    private String[][] intermediatePopulation;
-    private int[] everyAgentScores;
 
     /***
      * Genetic class algorithm constructor
      * @param numAgents Number of agents to use for path finding
      * @param numGenerations Number of generations (cycles) to loop
-     * @param numPossiblePaths Number of maze's free cells for an agent to walk
+     * @param numAgentMoves Number of maze's free cells for an agent to walk
      */
-    public GeneticAlgorithm(int numAgents, int numGenerations, int numPossiblePaths) {
-        this.randomizer = new Random();
+    public GeneticAlgorithm(int numAgents, int numGenerations, int numAgentMoves) {
         this.numAgents = numAgents;
-        this.numAgentGeneticLoad = numPossiblePaths;
+        this.numAgentMoves = numAgentMoves;
         this.numGenerations = numGenerations;
-        this.originalPopulation = new String[this.numAgents][this.numAgentGeneticLoad];
-        this.intermediatePopulation = new String[this.numAgents][this.numAgentGeneticLoad];
-        this.everyAgentScores = new int[this.numAgents];
     }
 
     /**
@@ -60,10 +77,10 @@ public class GeneticAlgorithm {
      * @param maze Maze that contains a path to be found
      * @return Same maze from input but containing its solution
      */
-    public char[][] findPath(char[][] maze) { // TODO: fix tournament duplication (multi-call)
+    public char[][] findPath(char[][] maze, int mazeSize) {
         // start genetic cycle collections
-        Arrays.fill(this.everyAgentScores, 0); // NOTE: temporary
-        startPopulation(this.originalPopulation);
+        List<Agent> originalPopulation = startPopulation(0,0);
+        List<Agent> intermediatePopulation = new ArrayList<>();
 
         // genetic cycle
         System.out.println("\n//// Genetic algorithm Execution ////");
@@ -71,17 +88,15 @@ public class GeneticAlgorithm {
 
             // print
             System.out.println("//// Generation: " + (generation+1));
-            showPopulation(this.originalPopulation, this.everyAgentScores);
+            showPopulation(originalPopulation);
+            // showPopulation(intermediatePopulation);
 
             // heuristic
-            heuristicFunction(maze);
+            heuristicFunction(originalPopulation, maze, mazeSize);
 
             // elitism
-            int firstBornAgent = elitismAlgorithm(this.everyAgentScores);
-            this.intermediatePopulation[0] = Arrays.copyOf(
-                    this.originalPopulation[firstBornAgent],
-                    this.numAgentGeneticLoad
-            );
+            Agent bestFitAgent = elitismAlgorithm(originalPopulation);
+            intermediatePopulation.add(bestFitAgent);
 
             // crossover
             for (int child = 1; child < this.numAgents; child++) {
@@ -104,14 +119,38 @@ public class GeneticAlgorithm {
     }
 
     /**
+     * Initializes agent population with random moves
+     * @return Population started with random agent's moves
+     */
+    public List<Agent> startPopulation(int startX, int startY) {
+
+        List<Agent> population = new ArrayList<>();
+        Random random = new Random();
+
+        for (int agentIdx = 0; agentIdx < this.numAgents; agentIdx++) {
+
+            Agent agentObj = new Agent(startX, startY, agentIdx);
+
+            for (int move = 0; move < this.numAgentMoves; move++) {
+                String agentMove = this.possibleMoves[random.nextInt(this.numAgentMoves)];
+                agentObj.moves.add(agentMove);
+            }
+
+            population.add(agentObj);
+        }
+
+        return population;
+    }
+
+    /**
      * Applies the heuristic function for generate fit score
      * @param maze Current maze to solve
      */
-    public void heuristicFunction(char[][] maze) { // TODO: Unit test
-        char[] agentPathInMaze;
+    public void heuristicFunction(List<Agent> population, char[][] maze, int mazeSize) {
+        List<Character> agentPathInMaze;
 
-        for (int agent = 0; agent < this.numAgents; agent++) {
-            agentPathInMaze = sanitizeAgentGeneticLoad(agent, maze);
+        for (Agent agent: population) {
+            agentPathInMaze = sanitizeAgentMovementsLoad(agent, maze, mazeSize);
             showPath(agent, agentPathInMaze);
             //this.everyAgentScores[agent] = some calculation over agentPathInMaze
         }
@@ -124,17 +163,12 @@ public class GeneticAlgorithm {
      * @param maze Current maze to solve
      * @return Agent maze's path info
      */
-    public char[] sanitizeAgentGeneticLoad(int agent, char[][] maze) {
-        int[] agentCurrentPosition = new int[] {0, 0};
-        int[] agentNewPosition;
-        int mazeSize = maze.length;
+    public List<Character> sanitizeAgentMovementsLoad(Agent agent, char[][] maze, int mazeSize) {
+        List<Character> agentPathInMaze = new ArrayList<>();
 
-        char[] agentPathInMaze = new char[this.numAgentGeneticLoad];
-
-        for (int gene = 0; gene < this.numAgentGeneticLoad; gene++) {
-            agentNewPosition = movementMapping(agent, gene, agentCurrentPosition);
-            agentCurrentPosition = validatePosition(agentCurrentPosition, agentNewPosition, mazeSize);
-            agentPathInMaze[gene] = maze[agentCurrentPosition[0]][agentCurrentPosition[1]];
+        for (int move = 0; move < this.numAgentMoves; move++) {
+            movementMapping(agent, move, mazeSize);
+            agentPathInMaze.add(maze[agent.X][agent.Y]);
         }
         return agentPathInMaze;
     }
@@ -142,89 +176,65 @@ public class GeneticAlgorithm {
     /**
      * Map agent's movements to maze's positions
      * @param agent Agent index (population line)
-     * @param gene Agent movement (population column)
-     * @param agentCurrentPosition Current position of the agent in maze
+     * @param move
+     * @param mazeSize
      * @return Array containing mapped movements as maze's positions
      */
-    public int[] movementMapping(int agent, int gene, int[] agentCurrentPosition) { ;
+    public void movementMapping(Agent agent, int move, int mazeSize) { ;
 
-        int[] newAgentPosition;
-        int mazeLine = agentCurrentPosition[0];
-        int mazeCol = agentCurrentPosition[1];
+        int newX = 0;
+        int newY = 0;
 
-        String agentMove = this.originalPopulation[agent][gene];
-
-        switch (agentMove) {
+        switch (agent.moves.get(move)) {
             case "N":
-                mazeLine -= 1;
+                newX = agent.X - 1;
                 break;
             case "S":
-                mazeLine += 1;
+                newX = agent.X + 1;
                 break;
             case "E":
-                mazeCol += 1;
+                newY = agent.Y + 1;
                 break;
             case "W":
-                mazeCol -= 1;
+                newY = agent.Y - 1;
                 break;
             case "NE":
-                mazeLine -= 1;
-                mazeCol += 1;
+                newX = agent.X - 1;
+                newY = agent.Y + 1;
                 break;
             case "NW":
-                mazeLine -= 1;
-                mazeCol -= 1;
+                newX = agent.X - 1;
+                newY = agent.Y- 1;
                 break;
             case "SE":
-                mazeLine += 1;
-                mazeCol += 1;
+                newX = agent.X + 1;
+                newY = agent.Y + 1;
                 break;
             case "SW":
-                mazeLine += 1;
-                mazeCol -= 1;
+                newX = agent.X + 1;
+                newY = agent.Y - 1;
                 break;
         }
 
-        newAgentPosition = new int[]{mazeLine, mazeCol};
-        return newAgentPosition;
-    }
-
-    /**
-     *
-     * @param agentCurrentPosition Current agent's position in maze
-     * @param agentNewPosition New possible agent's position in maze
-     * @param mazeSize Parametrized maze's size
-     * @return Valid agent's position in maze
-     */
-    public int[] validatePosition(int[] agentCurrentPosition, int[] agentNewPosition, int mazeSize) {
-        int newLine = agentNewPosition[0];
-        int newCol = agentNewPosition[1];
-
-        if (newLine < 0 || newLine >= mazeSize || newCol < 0 || newCol >= mazeSize) {
-            return agentCurrentPosition;
-        }
-        else{
-            return agentNewPosition;
-        }
+        agent.setX(newX, mazeSize);
+        agent.setY(newY, mazeSize);
     }
 
     /**
      * Selects an agent through elitism algorithm (best of all fits)
-     * @param everyAgentScores Every agent's scores to apply the algorithm
+     * @param population Every agent's scores to apply the algorithm
      * @return Best agent's solution to carry to next generation
      */
-    public int elitismAlgorithm(int[] everyAgentScores) {
-        // elitism variables
-        int chosenAgent = 0;
-        int currentFitScore = everyAgentScores[0];
+    public Agent elitismAlgorithm(List<Agent> population) {
+        Agent pivot = population.get(0);
 
-        // every agent's score comparison
-        for (int agent = 1; agent < this.numAgents ; agent++) {
-            if (currentFitScore < everyAgentScores[agent]) {
-                chosenAgent = agent;
+        for (Agent agent : population) {
+            if (agent.score > pivot.score) {
+                pivot = agent;
             }
         }
-        return chosenAgent;
+
+        return pivot;
     }
 
     /**
@@ -252,29 +262,40 @@ public class GeneticAlgorithm {
      * Selects an agent through tournament algorithm (best between two randomized fits)
      * @return Best fit agent
      */
-    private int TournamentAlgorithm() {
-        // List of available agent's indexes
-        List<Integer> availableAgents = IntStream.rangeClosed(0, this.numAgents-1)
-                .boxed()
-                .collect(Collectors.toList());
+    private Agent tournamentAlgorithm(List<Agent> population) {
 
-        // Agent selection without duplication
-        int firstAgentIdx = this.randomizer.nextInt(this.numAgents);
-        int firstAgent = availableAgents.remove(firstAgentIdx);
+        Pair <Integer, Integer> agentsIndexPair = getRandomPairOfAgentIndexes();
 
-        int secondAgentIdx = this.randomizer.nextInt(this.numAgents-1);
-        int secondAgent = availableAgents.remove(secondAgentIdx);
+        Agent firstAgent = population.get(agentsIndexPair.getValue0());
+        Agent secondAgent = population.get(agentsIndexPair.getValue1());
 
         // Agent scores comparison
-        int firstAgentScore = this.everyAgentScores[firstAgent];
-        int secondAgentScore = this.everyAgentScores[secondAgent];
-
-        if (firstAgentScore > secondAgentScore) {
+        if ( firstAgent.score > secondAgent.score) {
             return firstAgent;
         }
         else {
             return secondAgent;
         }
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Pair<Integer, Integer> getRandomPairOfAgentIndexes() {
+        Random random = new Random();
+        List<Integer> availableAgentIndexes = IntStream.rangeClosed(0, this.numAgents-1)
+                .boxed()
+                .collect(Collectors.toList());
+
+        int firstRandomIndex = random.nextInt(this.numAgents);
+        int firstAgentIndex = availableAgentIndexes.remove(firstRandomIndex);
+
+        int secondRandomIndex = random.nextInt(this.numAgents-1);
+        int secondAgentIndex = availableAgentIndexes.remove(secondRandomIndex);
+
+        return Pair.with(firstAgentIndex, secondAgentIndex);
+
     }
 
     /**
@@ -297,40 +318,26 @@ public class GeneticAlgorithm {
         }
     }
 
-    /**
-     * Initializes agent population with random moves
-     * @param population Population to store every agent's moves
-     */
-    private void startPopulation(String[][] population) {
-        // quantity of possible agent's moves
-        int numPossibleMoves = this.possibleMoves.length;
+//    /**
+//     *
+//     */
+//    public String[][] mutatePopulation(String[][] population) {
+//        int agent = this.randomizer.nextInt(this.numAgents);
+//
+//    }
 
-        // populate with random moves
-        for (int agent = 0; agent < this.numAgents; agent++) {
-            for (int gene = 0; gene < this.numAgentGeneticLoad; gene++) {
-                String agentMove = this.possibleMoves[this.randomizer.nextInt(numPossibleMoves)];
-                population[agent][gene] = agentMove;
-            }
-        }
-    }
 
     /**
      * Shows current population
      * @param population Agent population to show
-     * @param everyAgentScores Every agent score to show
      */
-    public void showPopulation(String[][] population, int[] everyAgentScores) {
-        // For every agent ...
-        for(int agent = 0; agent < this.numAgents; agent++){
-            System.out.print("[AGENT " + (agent+1) + "]: ");
-
-            // ... show its genetic load ...
-            for(int move = 0; move < this.numAgentGeneticLoad; move++){
-                System.out.print(population[agent][move] + " ");
+    public void showPopulation(List<Agent> population) {
+        for (Agent agent: population) {
+            System.out.print("[AGENT " + (agent.identifier) + "]: ");
+            for (String move : agent.moves) {
+                System.out.print(move + " ");
             }
-
-            // ... and solution score :)
-            System.out.println("| Fit score: " + everyAgentScores[agent]);
+            System.out.println(" | Score: " + agent.score);
         }
         System.out.println("");
     }
@@ -340,8 +347,8 @@ public class GeneticAlgorithm {
      * @param agent Agent's identifier
      * @param path Path made by agent
      */
-    private void showPath(int agent, char[] path) {
-        System.out.print("[Agent " + (agent+1) + "] PATH: [ ");
+    private void showPath(Agent agent, List<Character> path) {
+        System.out.print("[Agent " + agent.identifier + "] PATH: [ ");
 
         // show every object in path
         for (char c: path) {
