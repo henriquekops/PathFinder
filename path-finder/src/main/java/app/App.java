@@ -1,8 +1,7 @@
 package app;
 
 // project dependencies
-import algorithms.GeneticAlgorithm;
-import algorithms.AStarAlgorithm;
+import algorithms.genetic.GeneticAlgorithm;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -15,6 +14,7 @@ public class App {
     NOTES:
       Expected input:
         $ java main -p {--path} ~/UserX/... -g {--generations} 100 -s {--solutions} 5 [--debug]
+      Min number of agents is 3
      */
 
     private static int sizeMatrix;
@@ -30,15 +30,15 @@ public class App {
                 {'0', '0', '0', '0'}, // 2
                 {'1', 'B', 'S', '1'}  // 3
         };
-//        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(3, 5, 3);
-//        char[][] solution = geneticAlgorithm.findPath(maze);
+        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(3, 5, 9, 5);
+        char[][] solution = geneticAlgorithm.findPath(maze, 4);
 
-        int[] in = new int[] {0,0};
-        int[] out = new int[] {3,2};
+//        int[] in = new int[] {0,0};
+//        int[] out = new int[] {3,2};
 
-        AStarAlgorithm aStarAlgorithm = new AStarAlgorithm(in, out);
-        aStarAlgorithm.findPath(maze, 4);
-
+//        AStarAlgorithm aStarAlgorithm = new AStarAlgorithm(in, out);
+//        aStarAlgorithm.findPath(maze, 4);
+//
 //        String path = ""; //passado lá em cima no "expected input"
 //        sizeMatrix = 0;
 
