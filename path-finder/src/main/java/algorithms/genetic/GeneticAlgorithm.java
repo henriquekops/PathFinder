@@ -1,10 +1,7 @@
 package algorithms.genetic;
 
 // built-in dependencies
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
-import java.util.List;
+import java.util.*;
 import java.util.stream.IntStream;
 import java.util.stream.Collectors;
 
@@ -65,16 +62,25 @@ public class GeneticAlgorithm { // TODO: review comments
             // heuristic
             heuristicFunction(originalPopulation, maze, mazeSize);
 
+            showPopulation("ORIGINAL", originalPopulation);
+
             // elitism
             Agent bestFitAgent = elitismAlgorithm(originalPopulation);
             intermediatePopulation.add(bestFitAgent);
 
             // crossover
             for (int childIdx = 1; childIdx < this.numAgents; childIdx++) {
-                Agent father = tournamentAlgorithm(originalPopulation, -1);
-                Agent mother = tournamentAlgorithm(originalPopulation, father.getIdentifier());
+
+                // TODO: Drop duplicates
+                Pair <Integer, Integer> agentsIndexPair = getRandomPairOfAgentIndexes(-1);
+                Agent father = tournamentAlgorithm(originalPopulation, agentsIndexPair);
+
+                agentsIndexPair = getRandomPairOfAgentIndexes(father.getIdentifier());
+                Agent mother = tournamentAlgorithm(originalPopulation, agentsIndexPair);
+
                 System.out.println("father: " + father.getIdentifier() +
                         " mother: " + mother.getIdentifier());
+
                 Agent child = crossoverAlgorithm(father, mother, childIdx);
                 intermediatePopulation.add(child);
             }
@@ -99,14 +105,87 @@ public class GeneticAlgorithm { // TODO: review comments
      * @param maze Current maze to solve
      */
     public void heuristicFunction(List<Agent> population, char[][] maze, int mazeSize) {
-        List<Character> agentPathInMaze;
+        List<Pair<Integer, Integer>> agentCoordinates = new ArrayList<>();
+        Pair<Integer, Integer> agentNextCoordinate;
+        boolean stopEvaluation = false;
+        boolean isInBoundary = false;
 
         for (Agent agent: population) {
-            agentPathInMaze = sanitizeAgentMovementsLoad(agent, maze, mazeSize);
-            showPath(agent, agentPathInMaze);
-            //this.everyAgentScores[agent] = some calculation over agentPathInMaze
+            List<String> agentMoves = agent.getMoves();
+
+            for (int moveIdx = 0; moveIdx < this.numAgentMoves && !stopEvaluation; moveIdx++) {
+                String move = agentMoves.get(moveIdx);
+                agentNextCoordinate = movementMapping(agent, move);
+
+                isInBoundary = checkBoundary(agentNextCoordinate, agent, mazeSize);
+                if (isInBoundary) {
+                    stopEvaluation = checkMazeObject(agentNextCoordinate, agent, maze);
+                }
+                agentCoordinates.add(agent.getCoordinates());
+
+            }
+            if (!stopEvaluation) {
+                agent.updateScore(1000);
+            }
+            checkLoop(agentCoordinates, agent);
+            agentCoordinates.clear();
         }
         System.out.println("");
+    }
+
+    /**
+     *
+     * @param coordinate
+     * @param agent
+     * @param mazeSize
+     */
+    public boolean checkBoundary(Pair<Integer, Integer> coordinate, Agent agent, int mazeSize) {
+        int nextXCoordinate = coordinate.getValue0();
+        int nextYCoordinate = coordinate.getValue1();
+
+        if ( nextXCoordinate > 0 && nextXCoordinate < mazeSize && nextYCoordinate > 0 && nextYCoordinate < mazeSize) {
+            agent.updateScore(+1);
+            agent.setCoordinate(coordinate);
+            return true;
+        }
+        else {
+            agent.updateScore(+1);
+            return false;
+        }
+    }
+
+    /**
+     *
+     * @param coordinate
+     * @param agent
+     * @param maze
+     */
+    public boolean checkMazeObject(Pair<Integer, Integer> coordinate, Agent agent, char[][] maze) {
+
+        char mazeObject = maze[coordinate.getValue0()][coordinate.getValue1()];
+        boolean stopEvaluation = false;
+
+        switch (mazeObject) {
+            case 'S':
+                agent.setCoordinate(coordinate);
+                stopEvaluation = true;
+                break;
+            case '0':
+                agent.setCoordinate(coordinate);
+                break;
+            case '1':
+            case 'B':
+                agent.updateScore(+1);
+                break;
+        }
+        return stopEvaluation;
+    }
+
+    public void checkLoop(List<Pair<Integer, Integer>> coordinates, Agent agent) {
+        Set<Pair<Integer, Integer>> dropDuplicateCoordinates = new HashSet<>(coordinates);
+        if (coordinates.size() != dropDuplicateCoordinates.size()) {
+            agent.updateScore(+2);
+        }
     }
 
     /**
@@ -124,6 +203,7 @@ public class GeneticAlgorithm { // TODO: review comments
         }
 
         bestAgent.setIdentifier(0);
+        bestAgent.setScore(0);
         return bestAgent;
     }
 
@@ -131,18 +211,18 @@ public class GeneticAlgorithm { // TODO: review comments
      * Selects an agent through tournament algorithm (best between two randomized fits)
      * @return Best fit agent
      */
-    public Agent tournamentAlgorithm(List<Agent> population, int excludedAgentIdentifier) {
-        Pair <Integer, Integer> agentsIndexPair = getRandomPairOfAgentIndexes(excludedAgentIdentifier);
-        int firstAgentIndex = agentsIndexPair.getValue0();
-        int secondAgentIndex = agentsIndexPair.getValue1();
+    public Agent tournamentAlgorithm(List<Agent> population, Pair<Integer, Integer> agentsIndexPair) {
 
-        Agent firstAgent = population.get(firstAgentIndex);
-        Agent secondAgent = population.get(secondAgentIndex);
+        int firstAgentId = agentsIndexPair.getValue0();
+        int secondAgentId = agentsIndexPair.getValue1();
+
+        Agent firstAgent = population.get(firstAgentId);
+        Agent secondAgent = population.get(secondAgentId);
 
         System.out.println("first agent: " + firstAgent.getIdentifier() +
                 " second agent: " + secondAgent.getIdentifier());
 
-        if ( firstAgent.getScore() > secondAgent.getScore()) {
+        if ( firstAgent.getScore() < secondAgent.getScore()) {
             return firstAgent;
         }
         else {
@@ -224,94 +304,75 @@ public class GeneticAlgorithm { // TODO: review comments
     }
 
     /**
-     *
-     * @param agent Agent's identifier to recover maze's path information
-     * @param maze Current maze to solve
-     * @return Agent maze's path info
-     */
-    public List<Character> sanitizeAgentMovementsLoad(Agent agent, char[][] maze, int mazeSize) {
-        char mazeCellValue;
-        List<Character> agentPathInMaze = new ArrayList<>();
-
-        for (int move = 0; move < this.numAgentMoves; move++) {
-            movementMapping(agent, move, mazeSize);
-            mazeCellValue = maze[agent.getX()][agent.getY()];
-            agentPathInMaze.add(mazeCellValue);
-        }
-        return agentPathInMaze;
-    }
-
-    /**
      * Map agent's movements to maze's positions
      * @param agent Agent index (population line)
      * @param move
-     * @param mazeSize
      * @return Array containing mapped movements as maze's positions
      */
-    public void movementMapping(Agent agent, int move, int mazeSize) { ;
+    public Pair<Integer, Integer> movementMapping(Agent agent, String move) {
 
-        int newX = 0;
-        int newY = 0;
+        int nextXCoordinate = 0;
+        int nextYCoordinate = 0;
 
-        switch (agent.getMoves().get(move)) {
+        switch (move) {
             case "N":
-                newX = agent.getX() - 1;
+                nextXCoordinate = agent.getX() - 1;
                 break;
             case "S":
-                newX = agent.getX() + 1;
+                nextXCoordinate = agent.getX() + 1;
                 break;
             case "E":
-                newY = agent.getY() + 1;
+                nextYCoordinate = agent.getY() + 1;
                 break;
             case "W":
-                newY = agent.getY() - 1;
+                nextYCoordinate = agent.getY() - 1;
                 break;
             case "NE":
-                newX = agent.getX() - 1;
-                newY = agent.getY() + 1;
+                nextXCoordinate = agent.getX() - 1;
+                nextYCoordinate = agent.getY() + 1;
                 break;
             case "NW":
-                newX = agent.getX() - 1;
-                newY = agent.getY()- 1;
+                nextXCoordinate = agent.getX() - 1;
+                nextYCoordinate = agent.getY()- 1;
                 break;
             case "SE":
-                newX = agent.getX() + 1;
-                newY = agent.getY() + 1;
+                nextXCoordinate = agent.getX() + 1;
+                nextYCoordinate = agent.getY() + 1;
                 break;
             case "SW":
-                newX = agent.getX() + 1;
-                newY = agent.getY() - 1;
+                nextXCoordinate = agent.getX() + 1;
+                nextYCoordinate = agent.getY() - 1;
                 break;
         }
 
-        agent.setX(newX, mazeSize);
-        agent.setY(newY, mazeSize);
+        return Pair.with(nextXCoordinate, nextYCoordinate);
+
     }
 
     /**
      *
      * @return
      */
-    public Pair<Integer, Integer> getRandomPairOfAgentIndexes(int excludeIdx) {
+    public Pair<Integer, Integer> getRandomPairOfAgentIndexes(int excludeId) { // [0, 1, 2, 3]
         Random random = new Random();
-        int range = this.numAgents;
+        int boundary = this.numAgents;
 
-        List<Integer> availableAgentIndexes = IntStream.rangeClosed(0, this.numAgents - 1)
+        List<Integer> availableAgentIndexes = IntStream.rangeClosed(0, this.numAgents - 1) // [0, 2, 3]
                 .boxed()
                 .collect(Collectors.toList());
 
-        if (excludeIdx > 0) {
-            availableAgentIndexes.remove(excludeIdx);
-            range -= 1;
+        if (excludeId >= 0) {
+            availableAgentIndexes.remove(excludeId);
+            boundary -= 1;
         }
 
-        int firstRandomIndex = random.nextInt(range);
-        int firstAgentIndex = availableAgentIndexes.remove(firstRandomIndex);
+        int firstRandomIndex = random.nextInt(boundary);
+        int firstAgentId = availableAgentIndexes.remove(firstRandomIndex);
 
-        int secondRandomIndex = random.nextInt(range - 1);
-        int secondAgentIndex = availableAgentIndexes.remove(secondRandomIndex);
+        int secondRandomIndex = random.nextInt(boundary - 1);
+        int secondAgentId = availableAgentIndexes.remove(secondRandomIndex);
 
-        return Pair.with(firstAgentIndex, secondAgentIndex);
+        return Pair.with(firstAgentId, secondAgentId);
 
     }
 
