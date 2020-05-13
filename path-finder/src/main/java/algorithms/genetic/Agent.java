@@ -1,129 +1,124 @@
 package algorithms.genetic;
 
-// built-in dependencies
+// external dependencies
 import org.javatuples.Pair;
 
+// built-in dependencies
+import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Agent {
+public class Agent implements Serializable {
 
-    /**
-     * Coordinate variables
-     */
     private int X;
     private int Y;
 
-    /**
-     * Genetic cycle variables
-     */
     private int identifier;
     private int score;
 
-    /**
-     * Agent movements in maze
-     */
+    private boolean foundWayOut;
+
     private final List<String> moves;
 
-    /**
-     *
-     * @param x
-     * @param y
-     * @param identifier
-     */
     public Agent(int x, int y, int identifier) {
         this.moves = new ArrayList<>();
         this.identifier = identifier;
         this.score = 0;
         this.X = x;
         this.Y = y;
+        this.foundWayOut = false;
     }
 
     // GETTERS
 
-    /**
-     *
-     * @return
-     */
     public int getIdentifier() {
         return identifier;
     }
 
-    /**
-     *
-     * @return
-     */
     public int getScore() {
         return score;
     }
 
-    /**
-     *
-     * @return
-     */
     public List<String> getMoves() {
         return moves;
     }
 
-    /**
-     *
-     * @return
-     */
-    public int getX() {
-        return X;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getY() {
-        return Y;
-    }
-
-    /**
-     *
-     * @return
-     */
     public Pair<Integer, Integer> getCoordinates() {
-       return Pair.with(this.X, this.Y);
+       return Pair.with(X, Y);
+    }
+
+    public boolean foundWayOut() {
+        return foundWayOut;
     }
 
     // SETTERS
 
-    /**
-     *
-     * @param identifier
-     */
-    public void setIdentifier(int identifier) {
-        this.identifier = identifier;
+    public void setFoundWayOut(boolean foundWayOut) {
+        this.foundWayOut = foundWayOut;
     }
 
-    /**
-     *
-     * @param score
-     */
-    public void setScore(int score) {
-        this.score = score;
+    public void updateScore(int score) {
+        this.score += score;
     }
 
-    /**
-     *
-     * @param coordinates
-     */
     public void setCoordinate(Pair<Integer, Integer> coordinates) {
         this.X = coordinates.getValue0();
         this.Y = coordinates.getValue1();
     }
 
-    // OTHERS
-
-    /**
-     *
-     * @param score
-     */
-    public void updateScore(int score) {
-        this.score += score;
+    public void reset() {
+        this.identifier = 0;
+        this.score = 0;
+        this.foundWayOut = false;
     }
 
+    // OTHERS
+
+    public Pair<Integer, Integer> mapNextPosition(String move) {
+
+        int nextXCoordinate = 0;
+        int nextYCoordinate = 0;
+
+        switch (move) {
+            case "N":
+                nextXCoordinate = X - 1;
+                break;
+            case "S":
+                nextXCoordinate = X + 1;
+                break;
+            case "E":
+                nextYCoordinate = Y + 1;
+                break;
+            case "W":
+                nextYCoordinate = Y - 1;
+                break;
+            case "NE":
+                nextXCoordinate = X - 1;
+                nextYCoordinate = Y + 1;
+                break;
+            case "NW":
+                nextXCoordinate = X - 1;
+                nextYCoordinate = Y - 1;
+                break;
+            case "SE":
+                nextXCoordinate = X + 1;
+                nextYCoordinate = Y + 1;
+                break;
+            case "SW":
+                nextXCoordinate = X + 1;
+                nextYCoordinate = Y - 1;
+                break;
+        }
+
+        return Pair.with(nextXCoordinate, nextYCoordinate);
+    }
+
+    @Override
+    public String toString() {
+        return "Agent{\n" +
+                "\tidentifier=" + identifier + ",\n" +
+                "\tscore=" + score + ",\n" +
+                "\tmoves=" + moves + ",\n" +
+                '}';
+    }
 }

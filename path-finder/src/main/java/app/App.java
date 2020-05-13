@@ -2,7 +2,9 @@ package app;
 
 // project dependencies
 import algorithms.genetic.GeneticAlgorithm;
+import algorithms.AStarAlgorithm;
 
+// built-in dependencies
 import java.io.BufferedReader;
 import java.io.FileReader;
 
@@ -26,12 +28,22 @@ public class App {
         char[][] maze = {
                 //0    1    2    3
                 {'E', '0', '0', '0'}, // 0
-                {'1', 'B', '1', '0'}, // 1
+                {'1', '0', '1', '0'}, // 1
                 {'0', '0', '0', '0'}, // 2
                 {'1', 'B', 'S', '1'}  // 3
         };
-        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(3, 5, 9, 5);
-        char[][] solution = geneticAlgorithm.findPath(maze, 4);
+        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(
+                5,
+                5,
+                1, // 1%
+                10 // 10%
+
+        );
+        char[][] solution = geneticAlgorithm.findPath(
+                maze,
+                4,
+                9
+        );
 
 //        int[] in = new int[] {0,0};
 //        int[] out = new int[] {3,2};
