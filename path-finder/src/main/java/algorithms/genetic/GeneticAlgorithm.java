@@ -45,8 +45,11 @@ public class GeneticAlgorithm {
             System.out.println("");
             System.out.println(originalPopulation.toString());
 
-            if (originalPopulation.containsSolution()) {
-                System.out.println("FOUND SOLUTION!");
+            Agent solverAgent = originalPopulation.searchSolution();
+
+            if (solverAgent != null) {
+                System.out.println("[SOLUTION]: Found at generation " + generation);
+                System.out.println(solverAgent.getLastCoordinates());
                 break;
             }
 
@@ -75,16 +78,15 @@ public class GeneticAlgorithm {
     }
 
     public void heuristicFunction(Population population, char[][] maze, int mazeSize) {
-        List<Pair<Integer, Integer>> agentCoordinates = new ArrayList<>();
-
         for (Agent agent: population.getAgents()) {
 
             System.out.println("[HEURISTIC] Agent entry: " + agent.toString());
+            List<Pair<Integer, Integer>> agentCoordinates = new ArrayList<>();
 
             for (String move : agent.getMoves()) {
+                agentCoordinates.add(agent.getCoordinates());
                 if (agent.foundWayOut()) break;
                 scoreMove(agent, move, maze, mazeSize);
-                agentCoordinates.add(agent.getCoordinates());
             }
 
             if (!agent.foundWayOut()) {
@@ -98,7 +100,7 @@ public class GeneticAlgorithm {
             System.out.println("[HEURISTIC] Agent out: " + agent.toString());
             System.out.println("[HEURISTIC]: Agent coordinates: " + agentCoordinates.toString() + "\n");
 
-            agentCoordinates.clear();
+            agent.setLastCoordinates(agentCoordinates);
         }
     }
 
@@ -136,18 +138,18 @@ public class GeneticAlgorithm {
         List<Agent> agents = population.getAgents();
         Agent pivot = agents.get(0);
 
+        System.out.println("[ELITISM] Pivot: " + pivot.toString());
+
         for (Agent agent : agents) {
             if (agent.getScore() < pivot.getScore()) {
                 pivot = agent;
             }
         }
 
-        System.out.println("[ELITISM] Pivot: " + pivot.toString());
-
         Agent bestAgent = (Agent)SerializationUtils.clone(pivot);
-        bestAgent.reset();
-
         System.out.println("[ELITISM] Best agent: " + bestAgent.toString());
+
+        bestAgent.reset();
 
         return bestAgent;
     }

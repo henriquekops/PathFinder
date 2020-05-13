@@ -19,6 +19,7 @@ public class Agent implements Serializable {
     private boolean foundWayOut;
 
     private final List<String> moves;
+    private List<Pair<Integer, Integer>> lastCoordinates;
 
     public Agent(int x, int y, int identifier) {
         this.moves = new ArrayList<>();
@@ -51,10 +52,18 @@ public class Agent implements Serializable {
         return foundWayOut;
     }
 
+    public List<Pair<Integer, Integer>> getLastCoordinates() {
+        return lastCoordinates;
+    }
+
     // SETTERS
 
     public void setFoundWayOut(boolean foundWayOut) {
         this.foundWayOut = foundWayOut;
+    }
+
+    public void setLastCoordinates(List<Pair<Integer, Integer>> lastCoordinates) {
+        this.lastCoordinates = lastCoordinates;
     }
 
     public void updateScore(int score) {
@@ -76,8 +85,8 @@ public class Agent implements Serializable {
 
     public Pair<Integer, Integer> mapNextPosition(String move) {
 
-        int nextXCoordinate = 0;
-        int nextYCoordinate = 0;
+        int nextXCoordinate = X;
+        int nextYCoordinate = Y;
 
         switch (move) {
             case "N":

@@ -1,8 +1,5 @@
 package algorithms.genetic;
 
-import com.google.common.base.Predicates;
-import com.google.common.collect.Collections2;
-
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -115,13 +112,13 @@ public class Population {
         }
     }
 
-    public boolean containsSolution() {
+    public Agent searchSolution() {
         for (Agent agent : this.agents) {
             if ( agent.getScore() == 0 && agent.foundWayOut()) {
-                return true;
+                return agent;
             }
         }
-        return false;
+        return null;
     }
 
     @Override

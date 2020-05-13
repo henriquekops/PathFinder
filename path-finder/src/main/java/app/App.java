@@ -33,8 +33,8 @@ public class App {
                 {'1', 'B', 'S', '1'}  // 3
         };
         GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(
-                5,
-                5,
+                100,
+                20,
                 1, // 1%
                 10 // 10%
 
