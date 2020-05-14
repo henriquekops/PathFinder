@@ -33,17 +33,17 @@ public class GeneticAlgorithm {
         System.out.println("\n//// Genetic algorithm Execution ////");
         for (int generation = 0; generation < numGenerations; generation++) {
 
-            System.out.println("");
-            System.out.println("//// Generation: " + (generation+1));
+//            System.out.println("");
+            System.out.println("//// Generation: " + (generation));
 
-            System.out.println("");
-            System.out.println(originalPopulation.toString());
+//            System.out.println("");
+//            System.out.println(originalPopulation.toString());
 
             // heuristic
             heuristicFunction(originalPopulation, maze, mazeSize);
 
-            System.out.println("");
-            System.out.println(originalPopulation.toString());
+//            System.out.println("");
+//            System.out.println(originalPopulation.toString());
 
             Agent solverAgent = originalPopulation.searchSolution();
 
@@ -54,19 +54,19 @@ public class GeneticAlgorithm {
             }
 
             // elitism
-            System.out.println("");
+//            System.out.println("");
             Agent bestFitAgent = elitismAlgorithm(originalPopulation);
             intermediatePopulation.addAgent(bestFitAgent);
 
             // crossover
-            System.out.println("");
+//            System.out.println("");
             crossoverAlgorithm(originalPopulation, intermediatePopulation);
 
-            System.out.println("");
-            System.out.println(intermediatePopulation.toString());
+//            System.out.println("");
+//            System.out.println(intermediatePopulation.toString());
 
             // mutation
-            System.out.println("");
+//            System.out.println("");
             intermediatePopulation.mutate(agentMutationRatio, movementMutationRatio);
 
             // update current population
@@ -80,7 +80,7 @@ public class GeneticAlgorithm {
     public void heuristicFunction(Population population, char[][] maze, int mazeSize) {
         for (Agent agent: population.getAgents()) {
 
-            System.out.println("[HEURISTIC] Agent entry: " + agent.toString());
+//            System.out.println("[HEURISTIC] Agent entry: " + agent.toString());
             List<Pair<Integer, Integer>> agentCoordinates = new ArrayList<>();
 
             for (String move : agent.getMoves()) {
@@ -97,8 +97,8 @@ public class GeneticAlgorithm {
                 agent.updateScore(+10);
             }
 
-            System.out.println("[HEURISTIC] Agent out: " + agent.toString());
-            System.out.println("[HEURISTIC]: Agent coordinates: " + agentCoordinates.toString() + "\n");
+//            System.out.println("[HEURISTIC] Agent out: " + agent.toString());
+//            System.out.println("[HEURISTIC]: Agent coordinates: " + agentCoordinates.toString() + "\n");
 
             agent.setLastCoordinates(agentCoordinates);
         }
@@ -138,7 +138,7 @@ public class GeneticAlgorithm {
         List<Agent> agents = population.getAgents();
         Agent pivot = agents.get(0);
 
-        System.out.println("[ELITISM] Pivot: " + pivot.toString());
+//        System.out.println("[ELITISM] Pivot: " + pivot.toString());
 
         for (Agent agent : agents) {
             if (agent.getScore() < pivot.getScore()) {
@@ -147,7 +147,7 @@ public class GeneticAlgorithm {
         }
 
         Agent bestAgent = (Agent)SerializationUtils.clone(pivot);
-        System.out.println("[ELITISM] Best agent: " + bestAgent.toString());
+//        System.out.println("[ELITISM] Best agent: " + bestAgent.toString());
 
         bestAgent.reset();
 
@@ -164,9 +164,9 @@ public class GeneticAlgorithm {
         Agent firstAgent = agents.get(firstAgentId);
         Agent secondAgent = agents.get(secondAgentId);
 
-        System.out.println("\n");
-        System.out.println("[TOURNAMENT] Agent 1: " + firstAgent.toString());
-        System.out.println("[TOURNAMENT] Agent 2: " + secondAgent.toString());
+//        System.out.println("\n");
+//        System.out.println("[TOURNAMENT] Agent 1: " + firstAgent.toString());
+//        System.out.println("[TOURNAMENT] Agent 2: " + secondAgent.toString());
 
         if ( firstAgent.getScore() < secondAgent.getScore()) {
             return firstAgent;
@@ -187,9 +187,9 @@ public class GeneticAlgorithm {
             Agent father = tournamentAlgorithm(originalPopulation, null);
             Agent mother = tournamentAlgorithm(originalPopulation, father);
 
-            System.out.println("\n");
-            System.out.println("[CROSSOVER] Father: " + father.toString());
-            System.out.println("[CROSSOVER] Mother: " + mother.toString());
+//            System.out.println("\n");
+//            System.out.println("[CROSSOVER] Father: " + father.toString());
+//            System.out.println("[CROSSOVER] Mother: " + mother.toString());
 
             for (int move = 0; move < intermediatePopulation.getNumAgentMoves(); move ++ ) {
                 int mask = random.nextInt(2);
@@ -202,7 +202,7 @@ public class GeneticAlgorithm {
                 }
             }
 
-            System.out.println("[CROSSOVER] Child: " + child.toString());
+//            System.out.println("[CROSSOVER] Child: " + child.toString());
 
             intermediatePopulation.addAgent(child);
         }
