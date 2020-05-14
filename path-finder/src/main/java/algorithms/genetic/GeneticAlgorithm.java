@@ -16,11 +16,11 @@ public class GeneticAlgorithm {
     private final int movementMutationRatio;
     private final int agentMutationRatio;
 
-    public GeneticAlgorithm(int numGenerations, int numAgents, int movementMutationRatio, int agentMutationRatio) {
+    public GeneticAlgorithm(int numGenerations, int numAgents, int agentMutationRatio, int movementMutationRatio) {
         this.numGenerations = numGenerations;
         this.numAgents = numAgents;
-        this.movementMutationRatio = movementMutationRatio;
         this.agentMutationRatio = agentMutationRatio;
+        this.movementMutationRatio = movementMutationRatio;
     }
 
     public char[][] findPath(char[][] maze, int mazeSize, int numAgentMoves) {
