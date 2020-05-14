@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.SortedMap;
 
 /**
- * Main application class
+ * Main application classjava
  */
 public class App {
 
@@ -34,7 +34,7 @@ public class App {
         String logFilePathString = ".";
         String numGenerationString = "1";
         String numAgentsString = "3";
-        String agentMutationRatioString = "10";
+        String agentMutationRatioString = "60";
         String movementMutationRatioString = "1";
 
         try {
@@ -151,16 +151,17 @@ public class App {
         try {
             BufferedReader file = new BufferedReader(new FileReader(path));
 
-            int lineCount = 0;
+            int fileLineCount = 0;
 
             String[] intermediateElements;
 
             char[] lineElements;
             char element;
+            int mazeLineCount=0;
 
             while (file.ready()) {
 
-                if (lineCount != 0) {
+                if (fileLineCount != 0) {
                     String line = file.readLine();
                     StringBuilder intermediateString = new StringBuilder();
 
@@ -172,20 +173,21 @@ public class App {
 
                     lineElements = intermediateString.toString().toCharArray();
 
-                    if (lineCount < mazeSize) {
-                        for (int lineVal = 0; lineVal < lineElements.length; lineVal++) {
-                            element = lineElements[lineVal];
-                            if (element != ' ') element = lineElements[lineVal];
+                    if (mazeLineCount < mazeSize) {
+                        for (int columnVal = 0; columnVal < lineElements.length; columnVal++) {
+                            element = lineElements[columnVal];
+                            if (element != ' ') element = lineElements[columnVal];
                             if (element == '0' || element == 'S') numAgentMoves++;
-                            maze[lineCount][lineVal] = element;
+                            maze[mazeLineCount][columnVal] = element;
                         }
+                        mazeLineCount++;
                     }
                 }
                 else {
                     mazeSize = Integer.parseInt(file.readLine());
                     maze = new char[mazeSize][mazeSize];
                 }
-                lineCount++;
+                fileLineCount++;
             }
             file.close();
         }

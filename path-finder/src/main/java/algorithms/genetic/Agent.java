@@ -81,6 +81,11 @@ public class Agent implements Serializable {
         this.foundWayOut = false;
     }
 
+    public void resetCoordinates(){
+        this.X=0;
+        this.Y=0;
+    }
+
     // OTHERS
 
     public Pair<Integer, Integer> mapNextPosition(String move) {
