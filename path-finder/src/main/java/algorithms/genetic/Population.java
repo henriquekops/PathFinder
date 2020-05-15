@@ -1,5 +1,7 @@
 package algorithms.genetic;
 
+import logs.Logger;
+
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -15,11 +17,14 @@ public class Population {
     private final String identifier;
     private final String[] possibleMoves = {"N", "S", "E", "W", "NE", "NW", "SE", "SW"};
 
+    private final Logger logger;
+
     public Population(String identifier, int numAgents, int numAgentMoves) {
         this.identifier = identifier;
         this.numAgents = numAgents;
         this.numAgentMoves = numAgentMoves;
         this.agents = new ArrayList<>();
+        this.logger = Logger.getInstance();
     }
 
     // GETTERS
@@ -76,9 +81,8 @@ public class Population {
         int numAgentMutations = (int)Math.ceil(numAgents*(agentMutationRatio/100.0));
         int numMovementMutations = (int)Math.ceil(numAgentMoves*(movementMutationRatio/100.0));
 
-        System.out.println("\n");
-        System.out.println("[MUTATION] Agent mutation ratio: " + numAgentMutations);
-        System.out.println("[MUTATION] Movement mutation ratio: " + numMovementMutations);
+        logger.log("\n\n[MUTATION] Agent mutation ratio: " + numAgentMutations);
+        logger.log("\n\n[MUTATION] Movement mutation ratio: " + numMovementMutations);
 
         List<Integer> availableAgentIndexes = IntStream.rangeClosed(0, numAgents - 1)
                 .boxed()
@@ -88,7 +92,7 @@ public class Population {
             agentIdx = availableAgentIndexes.remove(random.nextInt((numAgentIdxRange--)-1))+1;
             Agent mutantAgent = agents.get(agentIdx);
 
-            //System.out.println("[MUTATION] Agent entry: " + mutantAgent.toString());
+            logger.log("\n\n[MUTATION] Agent entry: " + mutantAgent.toString());
 
             for (int numMoveMutation = 0; numMoveMutation <= numMovementMutations; numMoveMutation++) {
 
@@ -108,7 +112,7 @@ public class Population {
                 mutantAgent.getMoves().set(currMoveIdx, newMove);
             }
 
-            //System.out.println("[MUTATION] Agent out: " + mutantAgent.toString());
+            logger.log("\n\n[MUTATION] Agent out: " + mutantAgent.toString());
         }
     }
 

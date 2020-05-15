@@ -6,6 +6,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Collectors;
 
 // external dependencies
+import logs.Logger;
 import org.apache.commons.lang.SerializationUtils;
 import org.javatuples.Pair;
 
@@ -15,15 +16,17 @@ public class GeneticAlgorithm {
     private final int numAgents;
     private final int movementMutationRatio;
     private final int agentMutationRatio;
+    private final Logger logger;
 
     public GeneticAlgorithm(int numGenerations, int numAgents, int agentMutationRatio, int movementMutationRatio) {
         this.numGenerations = numGenerations;
         this.numAgents = numAgents;
         this.agentMutationRatio = agentMutationRatio;
         this.movementMutationRatio = movementMutationRatio;
+        this.logger = Logger.getInstance();
     }
 
-    public char[][] findPath(char[][] maze, int mazeSize, int numAgentMoves) {
+    public Pair<Integer, Integer> findPath(char[][] maze, int mazeSize, int numAgentMoves) {
 
         Population originalPopulation = new Population("original", numAgents, numAgentMoves);
         Population intermediatePopulation = new Population("intermediate", numAgents, numAgentMoves);
@@ -33,40 +36,36 @@ public class GeneticAlgorithm {
         System.out.println("\n//// Genetic algorithm Execution ////");
         for (int generation = 0; generation < numGenerations; generation++) {
 
-//            System.out.println("");
-            System.out.println("//// Generation: " + (generation));
+            logger.log("\n\n//// Generation: " + (generation));
+            System.out.println("\n\n//// Generation: " + (generation));
 
-//            System.out.println("");
-//            System.out.println(originalPopulation.toString());
+            logger.log("\n\n" + originalPopulation.toString());
 
             // heuristic
             heuristicFunction(originalPopulation, maze, mazeSize);
 
-            System.out.println("");
-            System.out.println(originalPopulation.toString());
+            logger.log("\n\n" + originalPopulation.toString());
 
             Agent solverAgent = originalPopulation.searchSolution();
 
             if (solverAgent != null) {
-                System.out.println("[SOLUTION]: Found at generation " + generation);
-                System.out.println(solverAgent.getLastCoordinates());
-                break;
+                String solutionString = "[SOLUTION]: Found at generation " + generation;
+                List<Pair<Integer,Integer>> path = solverAgent.getLastCoordinates();
+                logger.log(solutionString + "\n" + path);
+                System.out.println(solutionString + "\n" + path);
+                return path.get(path.size()-1);
             }
 
             // elitism
-//            System.out.println("");
             Agent bestFitAgent = elitismAlgorithm(originalPopulation);
             intermediatePopulation.addAgent(bestFitAgent);
 
             // crossover
-//            System.out.println("");
             crossoverAlgorithm(originalPopulation, intermediatePopulation);
 
-//            System.out.println("");
-//            System.out.println(intermediatePopulation.toString());
+            logger.log("\n\n" + intermediatePopulation.toString());
 
             // mutation
-//            System.out.println("");
             intermediatePopulation.mutate(agentMutationRatio, movementMutationRatio);
 
             // update current population
@@ -74,16 +73,17 @@ public class GeneticAlgorithm {
             intermediatePopulation.clear();
 
         }
-        return maze;
+        System.out.println("Did not found path :(");
+        return Pair.with(-1, -1);
     }
 
     public void heuristicFunction(Population population, char[][] maze, int mazeSize) {
         for (Agent agent: population.getAgents()) {
 
             agent.resetCoordinates();
-
-            //System.out.println("[HEURISTIC] Agent entry: " + agent.toString());
             List<Pair<Integer, Integer>> agentCoordinates = new ArrayList<>();
+
+            logger.log("\n\n[HEURISTIC] Agent entry: " + agent.toString());
 
             for (String move : agent.getMoves()) {
                 agentCoordinates.add(agent.getCoordinates());
@@ -95,8 +95,8 @@ public class GeneticAlgorithm {
                 agent.updateScore(+1000);
             }
 
-            System.out.println("[HEURISTIC] Agent out: " + agent.toString());
-            System.out.println("[HEURISTIC]: Agent coordinates: " + agentCoordinates.toString() + "\n");
+            logger.log("\n\n[HEURISTIC] Agent out: " + agent.toString());
+            logger.log("\n\n[HEURISTIC]: Agent coordinates: " + agentCoordinates.toString() + "\n");
 
             agent.setLastCoordinates(agentCoordinates);
         }
@@ -136,7 +136,7 @@ public class GeneticAlgorithm {
         List<Agent> agents = population.getAgents();
         Agent pivot = agents.get(0);
 
-        //System.out.println("[ELITISM] Pivot: " + pivot.toString());
+        logger.log("\n\n[ELITISM] Pivot: " + pivot.toString());
 
         for (Agent agent : agents) {
             if (agent.getScore() < pivot.getScore()) {
@@ -145,7 +145,8 @@ public class GeneticAlgorithm {
         }
 
         Agent bestAgent = (Agent)SerializationUtils.clone(pivot);
-        System.out.println("[ELITISM] Best agent: " + bestAgent.toString());
+
+        logger.log("\n\n[ELITISM] Best agent: " + bestAgent.toString());
 
         bestAgent.reset();
 
@@ -162,9 +163,8 @@ public class GeneticAlgorithm {
         Agent firstAgent = agents.get(firstAgentId);
         Agent secondAgent = agents.get(secondAgentId);
 
-        //System.out.println("\n");
-        //System.out.println("[TOURNAMENT] Agent 1: " + firstAgent.toString());
-        //System.out.println("[TOURNAMENT] Agent 2: " + secondAgent.toString());
+        logger.log("\n\n[TOURNAMENT] Agent 1: " + firstAgent.toString());
+        logger.log("\n\n[TOURNAMENT] Agent 2: " + secondAgent.toString());
 
         if ( firstAgent.getScore() < secondAgent.getScore()) {
             return firstAgent;
@@ -185,9 +185,8 @@ public class GeneticAlgorithm {
             Agent father = tournamentAlgorithm(originalPopulation, null);
             Agent mother = tournamentAlgorithm(originalPopulation, father);
 
-            System.out.println("\n");
-            System.out.println("[CROSSOVER] Father: " + father.toString());
-            System.out.println("[CROSSOVER] Mother: " + mother.toString());
+            logger.log("\n\n[CROSSOVER] Father: " + father.toString());
+            logger.log("\n\n[CROSSOVER] Mother: " + mother.toString());
 
             for (int move = 0; move < intermediatePopulation.getNumAgentMoves(); move ++ ) {
                 int mask = random.nextInt(2);
@@ -200,7 +199,7 @@ public class GeneticAlgorithm {
                 }
             }
 
-            //System.out.println("[CROSSOVER] Child: " + child.toString());
+            logger.log("\n\n[CROSSOVER] Child: " + child.toString());
 
             intermediatePopulation.addAgent(child);
         }

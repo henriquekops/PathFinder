@@ -1,21 +1,20 @@
 package app;
 
 // external dependencies
+import algorithms.AStarAlgorithm;
+import logs.Logger;
 import org.apache.commons.cli.*;
 
 // project dependencies
 import algorithms.genetic.GeneticAlgorithm;
+import org.javatuples.Pair;
 
 // built-in dependencies
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
-import java.util.SortedMap;
 
-/**
- * Main application classjava
- */
+
 public class App {
 
     private static int mazeSize = 0;
@@ -28,7 +27,9 @@ public class App {
         CommandLineParser parser = new DefaultParser();
         Options options = generateOptions();
 
-        String syntax = "java app --filepath ~/Documents/... --generations 100 --agents 10 --logfile ~/Documents/...";
+        String syntax = "java -jar path-finder-jar-with-dependencies.jar " +
+                "--filepath /home/documents/... --generations 100 --agents 10 " +
+                "--agent-ratio 10 --move-ratio 15 --logfile /home/documents/...";
 
         String mazeFilePathSring = "";
         String logFilePathString = ".";
@@ -36,6 +37,7 @@ public class App {
         String numAgentsString = "3";
         String agentMutationRatioString = "60";
         String movementMutationRatioString = "1";
+        boolean debug = false;
 
         try {
             CommandLine cmdLine = parser.parse(options, args);
@@ -58,6 +60,7 @@ public class App {
                 if (cmdLine.hasOption("a")) numAgentsString = cmdLine.getOptionValue("a");
                 if (cmdLine.hasOption("ar")) agentMutationRatioString = cmdLine.getOptionValue("ar");
                 if (cmdLine.hasOption("mr")) movementMutationRatioString = cmdLine.getOptionValue("mr");
+                debug = cmdLine.hasOption("d");
             }
 
         }
@@ -73,6 +76,10 @@ public class App {
 
         loadMaze(mazeFilePathSring);
 
+
+        Logger logger = Logger.getInstance();
+        logger.setLoggerObject(logFilePathString, debug);
+
         int numGenerations = Integer.parseInt(numGenerationString);
         int numAgents = Integer.parseInt(numAgentsString);
         int agentMutationRatio = Integer.parseInt(agentMutationRatioString);
@@ -85,51 +92,49 @@ public class App {
                 movementMutationRatio
 
         );
-        char[][] solution = geneticAlgorithm.findPath(
+        Pair<Integer, Integer> solution = geneticAlgorithm.findPath(
                 maze,
                 mazeSize,
                 numAgentMoves
         );
 
-//        int[] in = new int[] {0,0};
-//        int[] out = new int[] {3,2};
-
-//        AStarAlgorithm aStarAlgorithm = new AStarAlgorithm(in, out);
-//        aStarAlgorithm.findPath(maze, 4);
-//
-//        String path = ""; //passado lá em cima no "expected input"
-//        sizeMatrix = 0;
+        if (!solution.equals(Pair.with(-1, -1))) {
+            int[] in = new int[]{0,0};
+            int[] out = new int[]{solution.getValue0(), solution.getValue1()};
+            AStarAlgorithm aStarAlgorithm = new AStarAlgorithm(in, out);
+            aStarAlgorithm.findPath(maze, mazeSize);
+        }
     }
 
     public static Options generateOptions() {
         Options options = new Options();
 
         Option path = Option.builder("f").longOpt("filepath")
-                .desc("path to maze file")
+                .desc("path to maze file [REQUIRED]")
                 .type(String.class)
                 .hasArg()
                 .build();
         Option generations = Option.builder("g").longOpt("generations")
-                .desc("number of generations (default = 1)")
+                .desc("number of generations (default = 1) [OPTIONAL]")
                 .type(Integer.class)
                 .hasArg()
                 .build();
         Option agents = Option.builder("a").longOpt("agents")
-                .desc("number of agents, must be >= 3 (default=3)")
+                .desc("number of agents, must be >= 3 (default=3) [OPTIONAL]")
                 .type(Integer.class)
                 .hasArg()
                 .build();
         Option agentMutRatio = Option.builder("ar").longOpt("agent-ratio")
-                .desc("agent mutation ratio, maps e.g. 5 -> 5% (default=10)")
+                .desc("agent mutation ratio, maps e.g. 5 -> 5% (default=10) [OPTIONAL]")
                 .type(Integer.class)
                 .hasArg()
                 .build();
         Option moveMutRatio = Option.builder("mr").longOpt("move-ratio")
-                .desc("movement mutation ratio, maps e.g 5 -> 5% (default=1)")
+                .desc("movement mutation ratio, maps e.g 5 -> 5% (default=1) [OPTIONAL]")
                 .type(Integer.class)
                 .hasArg()
                 .build();
-        Option logFile = Option.builder("l").longOpt("log")
+        Option logFile = Option.builder("l").longOpt("log [OPTIONAL]")
                 .desc("path to log file (default='.')")
                 .type(String.class)
                 .hasArg()
@@ -142,6 +147,7 @@ public class App {
         options.addOption(moveMutRatio);
         options.addOption(logFile);
 
+        options.addOption("d", "debug", false, "turn on debugging [OPTIONAL]");
         options.addOption("h", "help", false, "show help");
 
         return options;
