@@ -1,0 +1,166 @@
+
+
+//// Genetic algorithm Execution ////
+
+
+//// Generation: 0
+[POPULATION] original:
+[Agent] 0: [NW, E, SW, SE, W, E, SE, SW, E, NE, SE, E, E, SW, W, E, SW, SW, W, SE, E, S, W, N, NW, NE, NE, SW, SE, W, S, SE, NW, SW, SW, S, S, W, S, E, N, S, NW, NW, SE, E, N, W, S, W, SE, NW, SW, N, W, SE, N, N] | Score = 1240
+[Agent] 1: [NE, N, SW, S, NW, W, W, SW, E, NE, E, SW, E, E, W, NW, W, SW, NE, E, NE, S, SW, NW, SE, SW, E, SW, SW, E, SW, N, NW, NE, W, SE, S, SW, NE, SW, S, S, NW, NW, W, SE, E, W, E, S, S, S, S, S, NW, S, E, E] | Score = 1510
+[Agent] 2: [E, W, SW, S, S, SE, S, E, SW, S, E, S, S, SE, NW, NE, W, E, W, SW, SE, NW, NW, S, SE, N, E, SW, NE, SW, SE, N, W, SW, SW, E, E, SW, S, SW, NW, SE, S, SE, SW, W, NW, W, NW, W, NW, N, SW, E, NW, NW, S, N] | Score = 1280
+[Agent] 3: [NW, NE, N, SE, E, SE, S, NE, SE, E, SE, NE, NE, N, SW, S, NW, W, NW, NE, N, E, SE, SW, NW, S, E, E, SE, S, SW, SW, S, S, SW, W, SW, NW, SE, NE, W, S, SE, SE, SE, N, N, NE, SW, W, E, SE, SE, NE, SW, SW, E, N] | Score = 1365
+[Agent] 4: [S, W, NW, W, S, W, NE, NE, NE, S, E, NE, W, NW, SW, S, S, SW, W, NW, S, N, E, NE, SW, S, S, E, E, NE, NE, S, N, E, NW, NE, N, SE, S, E, SE, NE, NE, S, E, N, E, NE, S, SE, W, NW, S, SE, SE, NW, NE, N] | Score = 1490
+[Agent] 5: [SE, E, NW, NE, SE, E, E, E, SW, SW, NW, W, SW, E, NW, E, E, NE, E, SW, SW, N, E, N, SE, SE, S, W, SW, S, NW, NW, N, NW, E, SW, SW, NE, N, S, E, S, N, SW, N, NE, SW, SE, NE, E, NW, W, W, NW, E, SE, N, E] | Score = 1220
+[Agent] 6: [NW, SW, E, W, NW, W, E, E, N, E, SW, N, S, NE, SE, S, E, W, S, W, SE, W, S, SE, S, S, N, NE, N, NE, N, W, W, NW, NW, N, N, SE, E, NW, NE, N, N, E, S, NW, E, N, SE, SE, E, SW, E, S, W, NW, SE, NE] | Score = 100
+[Agent] 7: [NW, NE, NE, N, NW, N, NE, N, SE, S, W, N, SW, N, E, NE, N, N, NW, SE, NW, S, E, N, W, SE, NW, NW, SE, W, NE, S, W, NW, W, NE, S, S, NE, SE, E, W, NW, S, SE, E, SE, N, SW, NE, NE, NE, S, SE, N, NW, SW, W] | Score = 1430
+[Agent] 8: [W, NE, NE, SE, N, E, E, NW, SE, W, S, SE, SW, SE, N, NW, N, NW, S, NW, NW, NW, NW, W, S, NW, E, S, W, W, SW, W, NW, SE, S, NE, W, W, SW, W, E, NE, E, N, W, SW, N, N, E, N, E, N, NW, S, N, E, E, S] | Score = 80
+[Agent] 9: [SW, NW, N, NE, NE, SE, S, N, SW, SW, S, SE, N, NW, SW, S, NW, N, NE, NW, SW, S, W, W, NE, N, SW, NE, E, S, E, W, SE, NE, NE, SW, NE, W, SW, N, NE, S, N, N, E, W, NW, NW, NW, NE, N, W, SW, SE, S, SE, NE, N] | Score = 1465
+[Agent] 10: [E, SE, W, SW, SW, NW, SW, NE, E, N, NW, SW, SE, NW, N, W, SE, SE, S, NW, NE, SE, NE, S, W, W, SE, N, NW, NW, E, SE, SE, NW, S, NE, E, NE, NE, NW, SE, SW, NE, W, W, SE, W, E, NE, NW, W, NW, N, W, SW, W, NW, SW] | Score = 130
+[Agent] 11: [E, NW, SE, NW, S, S, SE, NE, NW, SE, SW, E, E, SW, E, W, SW, SW, S, SE, NW, N, N, SE, S, E, SW, W, NW, NE, S, SE, NE, S, SE, SW, N, SE, N, N, W, N, S, SE, NE, E, SW, W, SW, W, N, SE, N, N, SW, NW, NW, NE] | Score = 1215
+[Agent] 12: [NE, S, NW, W, E, W, S, S, NE, E, E, NW, N, S, NW, SE, E, N, NE, E, NW, NE, SW, SE, E, NE, S, SE, W, SW, SW, NW, N, N, S, SE, SW, NE, NW, NE, N, E, S, SE, NE, NE, NW, N, N, W, NE, N, W, SW, NW, S, NW, SE] | Score = 215
+[Agent] 13: [NE, E, SW, SE, N, NE, W, S, SW, NW, W, W, W, S, S, SW, NE, E, NE, NE, SW, S, SW, E, E, SE, E, E, E, N, N, NW, NW, N, SE, W, E, W, S, SE, E, E, N, NE, SE, NW, SE, SW, NE, E, E, NE, E, SE, W, W, S, E] | Score = 1275
+[Agent] 14: [SW, NW, SW, SW, SW, E, N, E, S, S, S, SE, NE, E, E, SE, S, E, SW, NE, E, N, N, SE, SE, SW, SW, E, SW, E, E, E, N, NE, N, NW, N, E, S, SE, S, SE, NE, N, NE, NW, E, W, SW, W, SE, N, NW, SE, SE, E, NE, E] | Score = 1420
+[Agent] 15: [N, NW, W, SE, E, SE, E, E, SW, W, SW, SW, N, NW, SW, NE, E, E, S, SW, E, SE, SE, NE, SW, NE, NE, NE, NW, SE, SE, E, SE, N, SE, SE, SW, SW, N, NE, W, N, N, E, SW, NW, N, S, NW, SE, W, SE, N, E, SW, S, NE, W] | Score = 1305
+[Agent] 16: [SE, N, NW, SW, W, SW, S, S, E, NW, SW, N, NW, N, SW, W, S, NE, N, NW, SE, W, SW, S, SW, E, NE, N, S, SW, W, S, E, NE, SW, SW, W, W, W, SW, W, NE, E, E, W, NE, NW, NE, NW, SE, N, W, N, N, S, E, S, NE] | Score = 1455
+[Agent] 17: [W, SW, SW, S, S, S, E, NW, SE, E, S, E, SW, SE, NW, N, NE, W, S, S, N, SW, S, SW, N, SW, W, NE, E, SE, W, SW, N, S, NW, SW, NW, E, W, S, W, SE, W, SE, SE, E, E, E, NW, W, SW, SW, N, E, NE, SW, NE, N] | Score = 1380
+[Agent] 18: [NW, SE, NW, S, NW, W, NE, NW, NE, E, N, E, S, SE, S, S, E, W, E, S, NW, W, W, N, NW, E, E, W, W, SE, SE, SE, E, NE, N, NW, W, E, W, NE, SE, N, SW, NW, S, SW, W, S, NW, W, W, S, SE, NE, SE, N, N, N] | Score = 1320
+[Agent] 19: [NE, SW, SE, SE, NW, NE, NE, SW, W, NW, SW, N, E, NE, S, NW, NW, NW, W, SE, S, N, E, SE, NE, NE, SW, N, S, E, NE, S, NE, S, NW, NW, W, W, SW, NW, E, N, N, E, NW, SE, NE, NW, SE, SW, E, N, NW, SW, SE, N, SE, E] | Score = 370
+[Agent] 20: [S, S, N, NE, S, SW, S, SW, E, W, E, S, E, E, SE, E, E, SW, W, SE, NE, S, SE, S, E, S, W, W, NE, SE, SW, S, S, N, N, N, N, SE, W, NE, N, S, SW, E, W, SW, NW, E, SE, S, SW, W, SE, SW, W, N, NE, N] | Score = 1270
+[Agent] 21: [SE, S, S, W, NW, E, E, SE, N, W, N, SE, N, SE, NW, N, E, W, W, NW, W, NW, NW, E, E, W, NW, S, S, W, NW, N, SE, E, NW, W, SE, W, S, SE, SE, SW, SW, NW, E, NW, SE, E, S, NE, SW, W, SE, NW, W, SE, SW, SE] | Score = 1325
+[Agent] 22: [E, W, N, S, W, SW, NW, W, W, W, S, S, N, SW, S, SE, S, N, NW, SW, NW, SE, N, SW, E, SE, SW, SW, W, E, NE, E, E, NE, SE, NW, S, SW, N, SE, S, NW, N, SW, S, N, N, E, NW, W, SE, W, W, W, S, NE, N, N] | Score = 280
+[Agent] 23: [N, N, E, E, SE, W, E, N, NE, W, SW, SW, NE, N, NE, W, E, NE, W, NE, E, NW, NE, S, S, E, SW, NE, N, NE, NW, S, W, SE, NW, E, SE, N, SW, SW, E, W, W, NW, SW, NE, SW, SE, E, NW, SE, N, N, S, N, W, SW, SW] | Score = 285
+[Agent] 24: [SE, N, NE, S, E, S, NW, NW, E, SW, SE, NE, SW, S, W, S, N, W, SE, SE, SE, NE, N, NW, N, N, S, E, NE, SE, NE, S, SE, NW, NE, S, W, E, N, S, S, SE, N, S, SW, SW, SE, S, E, SW, S, W, NE, NW, E, N, W, S] | Score = 35
+[Agent] 25: [N, NW, S, N, S, W, S, NE, E, N, N, E, SW, SE, NW, S, NE, NE, W, NW, SE, W, SE, S, SW, NE, S, SE, W, SE, SW, W, N, W, N, S, NE, NW, SE, SW, SW, SW, SW, NW, S, NW, N, SW, N, NE, SE, NW, SE, SE, SW, E, SE, NE] | Score = 1310
+[Agent] 26: [NW, W, NW, W, NW, E, NW, SW, SE, NW, W, SE, W, NE, E, NW, E, NE, E, N, SW, S, W, NE, NE, W, NW, NW, S, NW, SW, S, NW, NE, NW, SE, N, N, N, W, SW, NW, N, W, W, NE, NE, S, SW, S, NE, S, SW, N, N, SW, E, N] | Score = 190
+[Agent] 27: [W, SE, W, S, S, SW, S, W, S, NE, NE, N, SE, SW, S, W, S, NE, S, S, W, NW, N, SE, SE, SW, NE, N, SW, NW, E, NW, SW, E, S, N, SW, NE, E, NE, N, SE, NE, SW, SW, W, N, NE, S, NE, W, SW, E, NE, W, E, S, E] | Score = 1145
+[Agent] 28: [SE, NW, NE, SE, SE, NE, NE, S, W, W, E, E, SW, SW, N, NE, SE, SE, S, E, S, SW, N, SE, SE, NE, SE, E, SW, NW, N, SE, SE, NE, NE, NW, NE, NW, SE, W, SE, E, N, SE, NE, NE, N, N, W, E, NW, N, W, N, S, NE, E, NE] | Score = 1200
+[Agent] 29: [SE, S, NE, NW, S, S, SW, W, SW, NE, SW, NE, W, E, S, NE, S, W, W, NW, N, N, E, NE, NW, S, S, W, SE, NW, NW, SE, NE, S, SE, S, NE, SE, SE, SE, W, SW, W, N, NW, E, S, SE, NE, S, SE, NW, E, NE, N, E, NE, E] | Score = 1160
+[Agent] 30: [NW, SE, E, S, SE, W, SE, E, N, S, N, SE, N, NW, E, SE, NW, NW, E, NE, NE, SW, SE, N, NW, W, NW, NW, SE, SW, NE, S, SW, SE, NW, W, E, N, W, W, SE, NE, S, W, NW, SE, N, E, NE, NW, NW, W, S, SW, SW, S, SW, N] | Score = 1320
+[Agent] 31: [SE, S, W, S, NW, SW, SE, S, SE, NE, S, SW, W, SE, W, S, NW, E, NW, E, NW, NW, S, NE, SE, SW, N, SW, NW, NW, S, NW, SE, NE, N, SE, SE, N, S, W, SW, SW, E, SW, W, W, SE, NE, NW, SW, NE, SE, E, N, SE, NE, W, SE] | Score = 1320
+[Agent] 32: [W, W, S, NE, W, NW, NE, SE, E, SW, N, N, W, NW, N, N, NW, SE, NE, NW, SE, W, SW, SE, W, S, NW, NW, NE, SE, SW, SW, NW, N, NW, N, S, W, E, SW, S, S, W, W, W, NW, N, SW, NE, SW, S, S, E, W, S, NW, SE, SE] | Score = 1470
+[Agent] 33: [W, SW, NW, SW, NE, NE, NW, W, E, SE, NW, SW, N, N, N, SE, N, S, SW, W, E, SE, NW, E, E, SW, SW, S, NW, NE, SE, NW, SW, NW, W, E, NE, E, N, SW, SE, SW, N, S, SE, S, NW, SE, W, E, S, N, S, S, NW, SE, E, S] | Score = 1405
+[Agent] 34: [N, SW, NE, NE, NW, SW, S, NW, NE, NE, NE, NW, SW, NW, S, N, S, W, E, NE, S, S, NE, E, SE, W, E, N, N, NW, SW, E, W, E, S, NW, NE, NW, S, NE, SE, NW, NE, NW, S, NE, E, NE, NW, SW, SW, SW, SW, NE, SE, NW, S, NW] | Score = 405
+[Agent] 35: [SE, N, S, N, SE, SW, SE, SW, SE, NE, E, SE, NE, NW, NW, E, E, SW, S, S, NW, N, NW, N, SW, NW, NE, NW, W, NW, NW, SE, SE, E, N, S, NW, S, SW, W, SW, NE, S, SE, E, E, S, SW, NE, W, NW, NW, SW, S, NE, SE, SE, S] | Score = 1180
+[Agent] 36: [S, SW, W, N, NW, NW, SW, E, W, NE, E, N, SE, NE, SW, S, E, SE, NW, NE, NW, E, NE, W, NW, N, W, SW, N, N, SW, S, E, N, SE, E, W, S, NE, E, E, NW, NE, E, NW, NW, SW, NW, SE, NW, N, SE, S, NE, E, SE, NW, E] | Score = 1480
+[Agent] 37: [W, N, NW, SW, S, NW, N, NE, N, E, SW, NE, SW, W, E, E, W, NW, NE, NW, SE, SW, NE, NE, NW, NE, NE, W, NW, W, SE, NW, SE, W, E, NW, NW, N, S, SW, SE, NW, N, E, NE, E, NW, S, NW, N, E, S, NE, N, W, NW, E, NW] | Score = 1465
+[Agent] 38: [SW, E, S, E, E, SW, NE, E, E, NW, SE, S, N, W, SE, NW, NW, E, S, N, NW, N, W, E, NW, NW, W, W, W, W, N, E, E, E, N, E, E, SE, NW, N, E, SW, E, N, W, SE, E, W, W, SW, E, S, NW, N, SW, NW, SE, NW] | Score = 1290
+[Agent] 39: [S, W, N, NW, SW, SW, E, NE, W, SE, N, NW, N, E, S, N, N, W, NW, N, N, S, W, S, NW, NW, W, NE, W, SW, N, W, E, SE, N, S, NW, SW, SW, E, NW, NE, NW, W, S, N, W, W, SE, N, W, W, N, NW, E, E, N, NW] | Score = 1495
+[Agent] 40: [E, SW, N, E, N, S, E, NW, W, S, S, NE, SW, SW, SW, E, NW, E, NE, SW, NW, E, NE, NW, NW, NW, S, E, SE, SW, N, NW, S, S, E, SW, NW, NW, E, NE, SW, E, W, SE, W, SW, S, N, S, NW, S, W, NW, SW, W, SW, SW, NE] | Score = 1485
+[Agent] 41: [W, NE, SE, W, SE, SE, E, N, W, N, E, E, N, NE, N, N, NE, S, W, NE, W, W, W, E, SW, E, NE, W, S, NE, SW, S, NW, NW, N, N, SE, W, SW, NW, W, N, E, W, NE, SW, NE, SE, SW, SE, NE, NE, NE, NW, SW, NW, NW, SW] | Score = 1355
+[Agent] 42: [NW, NW, E, E, E, W, S, E, S, N, E, N, NE, NE, E, SW, NW, S, W, S, SW, SE, E, S, E, SE, E, NW, NW, SE, E, NE, SE, N, N, SW, N, N, NW, E, W, SE, S, SW, SW, E, SE, W, SW, SW, NW, E, NE, NW, NE, N, N, N] | Score = 1215
+[Agent] 43: [NE, NW, N, NE, W, S, W, N, NW, S, NE, N, W, W, S, E, SW, E, SE, SW, W, NE, NW, E, NW, S, N, NW, NW, W, S, N, E, NE, NW, SW, SE, E, SE, N, S, SW, S, NE, NW, NW, NE, SW, N, N, E, NE, SW, NW, E, NE, S, SW] | Score = 1575
+[Agent] 44: [S, NE, E, E, W, S, SE, NE, NE, S, NE, E, N, NE, SE, N, SE, NW, E, NE, NW, NE, W, SW, NE, E, NE, NE, W, NE, NW, N, NE, NE, NW, SE, N, NW, W, NW, S, E, E, SW, SE, SE, N, N, N, S, N, NW, SE, N, W, E, SE, SE] | Score = 1390
+[Agent] 45: [S, SE, NW, SW, E, SE, SE, S, S, E, NW, E, N, E, W, SE, S, NW, E, NE, NE, E, NW, N, NE, E, SW, SW, SE, SE, N, NE, NW, NW, NW, NW, N, E, NW, NW, NW, S, SE, E, N, W, N, SW, S, E, SW, NE, S, SW, E, W, SW, E] | Score = 1150
+[Agent] 46: [SW, N, SW, E, NE, N, SE, SW, NE, N, SW, N, NW, NE, NE, E, N, SW, N, NW, W, NW, S, E, NE, N, N, W, E, SE, NW, S, NE, E, S, SE, N, E, S, S, W, N, E, SE, W, E, NW, SW, S, N, W, NE, SE, N, E, NE, S, SW] | Score = 290
+[Agent] 47: [NW, S, NW, NE, S, W, SW, NE, E, NE, W, N, S, N, NW, N, SW, SW, SW, NW, NW, E, SW, NE, SE, SE, S, W, SE, N, SE, S, SW, SE, NE, NW, SW, N, NE, S, E, SW, S, SW, S, E, E, S, NE, SE, N, SW, NW, W, W, NW, SW, SW] | Score = 1460
+[Agent] 48: [SE, SE, N, NW, E, SW, SE, S, E, N, SW, SE, E, N, W, S, E, NE, S, S, NW, E, S, N, S, N, NE, W, NW, SE, NE, SE, S, NW, N, W, NE, W, NW, SW, S, NE, SW, S, NE, NE, NW, S, SW, NW, NE, SW, E, NE, S, NE, E, NE] | Score = 1165
+[Agent] 49: [S, NE, NE, NW, NW, SW, NW, E, E, E, N, E, SW, W, SW, NW, SW, SW, E, NE, E, NW, E, NW, SW, N, S, S, N, E, SE, S, NW, NW, N, NW, E, W, SW, E, NW, E, NE, NE, S, NE, N, SW, W, NE, SW, S, NE, E, N, SW, N, W] | Score = 245
+
+
+Best agent at generation: 
+
+Agent{
+	identifier=24,
+	score=35,
+	moves=[SE, N, NE, S, E, S, NW, NW, E, SW, SE, NE, SW, S, W, S, N, W, SE, SE, SE, NE, N, NW, N, N, S, E, NE, SE, NE, S, SE, NW, NE, S, W, E, N, S, S, SE, N, S, SW, SW, SE, S, E, SW, S, W, NE, NW, E, N, W, S],
+}
+//// Generation: 1
+
+
+Best agent at generation: 
+
+Agent{
+	identifier=26,
+	score=30,
+	moves=[SE, S, NE, NW, S, W, E, E, N, NE, SW, NE, S, NE, SE, S, S, W, S, W, N, N, S, NE, NW, S, N, W, SE, NW, NW, W, W, NW, SE, N, N, SE, SE, SE, NE, SW, W, E, S, E, S, N, SE, SE, E, SW, E, S, W, NW, SE, E],
+}
+//// Generation: 2
+
+
+Best agent at generation: 
+
+Agent{
+	identifier=2,
+	score=10,
+	moves=[S, SE, NW, SE, E, N, SE, E, E, S, N, S, SW, NW, E, SE, NW, NW, S, NW, E, NE, SE, NW, E, W, N, NE, N, E, SE, S, SW, NW, N, W, E, N, W, W, SE, NE, S, NE, NW, NE, N, N, NE, NE, SW, S, S, S, N, SW, E, S],
+}
+//// Generation: 3
+
+
+Best agent at generation: 
+
+Agent{
+	identifier=0,
+	score=10,
+	moves=[S, SE, NW, SE, E, N, SE, E, E, S, N, S, SW, NW, E, SE, NW, NW, S, NW, E, NE, SE, NW, E, W, N, NE, N, E, SE, S, SW, NW, N, W, E, N, W, W, SE, NE, S, NE, NW, NE, N, N, NE, NE, SW, S, S, S, N, SW, E, S],
+}
+//// Generation: 4
+[POPULATION] original:
+[Agent] 0: [S, SE, NW, SE, E, N, SE, E, E, S, N, S, SW, NW, E, SE, NW, NW, S, NW, E, NE, SE, NW, E, W, N, NE, N, E, SE, S, SW, NW, N, W, E, N, W, W, SE, NE, S, NE, NW, NE, N, N, NE, NE, SW, S, S, S, N, SW, E, S] | Score = 10
+[Agent] 1: [S, SW, E, SW, SE, SE, NE, S, S, N, SW, SE, N, NE, SW, NW, NW, NW, N, NE, SW, E, NE, S, NW, S, E, SW, SE, W, NE, NE, SE, N, S, NE, E, N, SW, N, E, E, NE, SE, NW, NE, N, SW, NE, E, SE, SE, NW, W, E, SE, SW, NE] | Score = 1420
+[Agent] 2: [E, SW, NW, SW, S, NE, NW, E, NE, NE, NW, NW, SE, E, S, S, SE, NW, NW, NE, S, E, SE, S, NW, W, SW, N, W, SE, S, E, NE, S, NE, NE, NE, E, N, S, SE, E, NE, E, NE, SE, E, SW, E, SW, S, NE, SW, SW, S, W, S, NW] | Score = 130
+[Agent] 3: [SW, S, S, SE, S, NE, SE, NE, SE, SW, NW, E, SW, N, SE, S, NW, S, S, NE, N, N, N, NW, NE, NE, N, N, W, NW, NE, W, SE, NE, N, S, SW, S, N, S, SE, SE, N, S, N, SE, E, SW, E, SW, NW, NW, SE, NW, W, NW, E, NW] | Score = 35
+[Agent] 4: [SE, N, S, NE, NW, SE, E, NW, N, SW, SW, NE, NE, E, SE, NW, N, W, E, NE, W, SW, S, SW, SW, S, S, N, W, S, SE, W, S, S, SW, S, W, S, SE, S, NE, N, S, E, SE, NE, S, SW, SE, SW, E, NW, SE, S, SW, SW, W, E] | Score = 1380
+[Agent] 5: [S, NW, NE, S, E, N, SE, E, E, NE, N, NE, S, NE, E, SE, E, NW, S, W, E, NE, SE, NW, E, W, E, NE, S, E, SE, S, SW, NE, NE, W, E, N, W, W, SE, SW, S, NW, SE, E, SE, N, NE, SE, SW, S, SE, S, N, W, SE, S] | Score = 1290
+[Agent] 6: [N, NW, E, NE, SE, NE, SE, E, SE, NE, SW, NE, NE, NE, E, SW, NW, NW, S, NE, W, SE, S, SW, SW, S, N, E, N, S, NW, E, NW, S, SW, N, SW, S, S, NW, NE, N, W, E, SE, NW, S, NW, NE, E, E, NE, S, SW, NE, SW, N, E] | Score = 60
+[Agent] 7: [S, N, S, SE, E, NE, E, NE, E, NE, NW, E, SW, E, S, NW, N, W, E, NE, S, SW, S, S, SE, S, NE, SE, W, SE, SW, SE, SE, S, NE, S, W, E, SE, S, SE, E, N, E, SE, SE, N, NW, SE, SW, NW, NE, SE, N, S, SE, SW, E] | Score = 1410
+[Agent] 8: [SE, N, NE, SE, S, NW, NE, S, S, N, NE, SW, SE, NE, N, S, S, W, SE, N, NE, N, S, S, SE, NE, NE, W, E, S, NE, W, W, NW, SE, N, W, E, NE, S, NE, SW, NE, E, S, NW, N, N, SE, SW, S, NW, E, SW, E, NW, NW, E] | Score = 1215
+[Agent] 9: [N, S, NE, S, S, W, NW, NE, SE, N, W, E, E, N, N, SW, NW, W, E, S, N, W, N, NW, NE, SE, N, N, W, SE, NE, S, NW, NE, N, S, SW, E, S, SE, W, S, SW, E, SE, SE, N, SW, SE, W, NW, NW, NE, S, N, E, E, E] | Score = 1345
+[Agent] 10: [S, S, SE, SE, S, NE, NE, NE, SE, N, NW, E, SE, N, NW, S, S, NE, NW, NE, N, N, N, S, SE, NE, N, SE, SW, NW, NE, W, NE, NW, N, S, SW, E, SE, SW, E, E, N, E, S, SE, N, SW, SE, E, W, NW, E, N, W, E, SW, NE] | Score = 95
+[Agent] 11: [N, E, NE, SE, E, NE, SW, SW, SE, E, NW, SW, N, E, S, SE, NE, NE, W, S, S, N, S, E, SE, NE, N, N, N, NW, SW, E, NE, N, NW, S, W, E, SW, SW, NE, W, W, SE, N, SE, E, SW, NE, SE, NW, SE, S, N, E, W, SE, S] | Score = 1190
+[Agent] 12: [NW, SE, NW, S, SE, NE, S, SW, SE, NE, NW, SE, N, NW, E, SE, SE, NE, W, N, E, S, SE, SW, NW, NE, NE, NW, SE, NW, N, E, SE, SE, NW, S, N, NW, SW, W, SE, NE, E, SE, S, NE, N, SW, N, N, NW, S, SE, N, W, S, NW, N] | Score = 65
+[Agent] 13: [SE, N, W, SE, E, NE, SE, E, E, NE, S, E, SW, NE, E, NW, E, W, W, N, SW, S, N, N, NE, W, S, SW, S, W, SW, SE, SE, NW, NE, S, N, N, N, S, SW, S, SW, SE, SE, SW, SE, NW, NE, SW, SE, SE, N, N, W, S, N, NE] | Score = 0
+[Agent] 14: [SE, N, NE, S, NW, W, SE, E, S, NE, SW, NE, SE, NE, SE, S, N, NE, SE, S, N, N, SW, N, NW, W, N, SW, S, SE, NE, E, SE, NW, NE, S, N, E, N, S, N, SE, SW, SE, NE, NW, SE, N, SE, SE, SW, SW, SE, NW, NE, W, W, S] | Score = 135
+[Agent] 15: [SW, S, S, SE, S, NE, E, E, N, NE, NW, N, N, E, SE, SE, S, NW, NW, S, S, N, W, SE, NW, S, N, W, S, SE, S, S, NE, S, N, S, NE, E, SE, SW, N, E, W, SE, S, SE, N, SW, SW, S, NW, S, S, NW, S, W, SW, S] | Score = 120
+[Agent] 16: [S, NW, E, SE, NW, NW, E, S, S, NE, NW, N, E, E, E, SE, E, SE, S, NE, SW, SE, NE, S, SW, S, E, SW, SE, E, NW, SE, NW, S, SE, SW, E, N, N, N, NW, SE, W, NE, NW, E, SE, SW, SW, E, SW, NE, S, SW, W, W, SW, N] | Score = 1175
+[Agent] 17: [SE, SW, NE, S, E, W, NW, S, SE, N, NW, NE, N, SE, S, SW, NW, NW, W, N, E, SE, SW, SE, N, SE, S, NE, NW, E, SW, S, NW, NE, SE, N, SW, E, SE, SW, W, NE, S, E, SE, SE, SE, S, SE, E, NW, W, NE, SW, N, E, E, E] | Score = 1110
+[Agent] 18: [N, E, E, SE, S, NE, SE, W, SE, W, NW, SW, SW, N, NW, SE, E, NE, W, N, N, W, S, S, NE, NE, N, N, N, NW, SW, W, NW, NE, N, S, SW, E, SE, SW, SE, W, N, SW, S, SE, N, SW, SE, S, NW, NW, SE, N, W, E, SE, NE] | Score = 25
+[Agent] 19: [S, S, E, E, S, NE, SE, E, N, N, SW, N, S, E, E, E, E, NW, NW, W, SW, SE, SE, NE, NE, S, SW, W, SE, W, NE, W, W, N, SE, SW, E, SE, SE, NW, SE, SE, W, NE, N, E, SE, SW, SE, SW, SW, N, N, NW, E, S, SW, S] | Score = 10
+[Agent] 20: [S, SW, NE, SE, SE, NE, E, NW, N, NE, NW, SE, N, NW, S, E, S, NW, W, NE, S, N, S, S, NW, SW, N, SE, W, SE, NE, S, NE, S, NE, S, W, N, SE, NW, SE, SW, N, E, S, SE, N, SW, SE, SE, SW, NE, NE, N, W, W, SW, E] | Score = 1210
+[Agent] 21: [NE, E, NE, NW, E, S, SW, E, SW, N, SW, SE, S, SW, N, S, S, S, S, N, N, SE, W, SE, S, S, NE, NW, NW, NW, NW, SE, NE, N, SE, S, N, SE, N, SW, N, SW, E, N, S, E, S, SW, SW, SE, E, SE, E, S, NE, E, SE, W] | Score = 1320
+[Agent] 22: [E, NW, SE, SW, S, S, SE, NE, NE, NE, NE, SE, N, N, E, S, SE, W, SE, SE, SW, S, N, W, W, S, E, SW, S, W, NE, E, SE, N, S, NE, N, NE, N, S, SE, SE, NE, SE, NE, NE, E, SW, SW, E, S, SW, N, W, E, W, S, NE] | Score = 1200
+[Agent] 23: [SW, S, S, NW, S, NE, E, E, N, NW, NW, SW, NE, E, SE, S, S, NW, W, S, NE, E, S, SE, NW, SW, N, W, S, SE, NW, S, SE, S, NE, W, W, SE, SE, SW, SE, SE, N, SE, S, SE, E, W, SE, S, SE, NE, S, SW, N, E, SW, E] | Score = 135
+[Agent] 24: [SW, SE, SE, E, SE, NE, S, E, E, N, SW, SE, E, N, N, NW, NE, SE, S, S, NW, S, S, N, S, S, NE, W, SE, SE, NE, S, SE, N, NE, NE, N, N, N, N, N, E, NW, SE, NW, NE, N, W, NE, SW, NW, NW, N, N, N, S, SE, SE] | Score = 185
+[Agent] 25: [NW, S, NW, S, SE, NE, SE, NE, N, NE, N, SE, NE, N, N, E, S, NW, S, S, NW, S, S, N, S, W, NE, W, SE, SE, E, W, SE, E, SE, S, N, SE, NW, SW, N, SW, NW, SE, N, SE, N, NW, N, SW, E, NW, S, S, N, S, SW, SE] | Score = 1405
+[Agent] 26: [SE, S, NE, S, E, NE, E, SW, N, NE, NW, SE, S, E, SE, S, E, N, E, W, N, N, S, E, NW, W, E, SW, E, SE, E, E, NE, NW, SE, W, W, SE, SE, NW, NE, SW, SW, SE, SE, E, SE, SW, SE, SE, SW, N, SE, S, NE, W, SE, S] | Score = 1195
+[Agent] 27: [S, N, W, S, NW, NW, SE, E, S, N, S, N, SE, NE, E, S, E, S, NW, N, SW, N, SW, N, NE, NE, E, SE, SW, S, S, SE, NE, NE, S, S, W, E, N, SW, E, SE, SW, NW, S, NW, SW, SW, SW, SW, W, NW, E, SW, W, S, N, NE] | Score = 95
+[Agent] 28: [N, SW, SW, SE, SE, W, SE, NE, W, N, W, N, SW, E, E, NW, S, NE, S, SW, E, E, N, E, E, NE, N, N, N, E, SE, SE, SW, NW, SE, S, SW, SE, W, SE, SE, NE, N, E, W, E, N, NW, NE, NE, SW, S, E, N, NE, SE, NE, S] | Score = 130
+[Agent] 29: [S, SW, NW, SE, S, N, SE, E, E, S, N, N, N, NW, E, SE, S, NW, S, NE, S, E, S, S, NW, S, N, NE, W, SE, SE, S, SW, S, NE, S, W, E, W, W, SW, E, N, NE, S, SE, NE, N, NE, SE, SW, S, S, S, N, W, SW, E] | Score = 75
+[Agent] 30: [S, S, E, SE, SE, NE, S, NE, N, NE, NW, N, NE, E, S, E, NE, NW, S, NE, NW, S, S, S, NW, W, NE, W, W, SE, S, S, NE, N, NE, S, NE, E, NW, SW, N, E, N, SE, NE, SE, N, SW, SE, SE, NW, NW, NE, N, S, S, SE, SE] | Score = 140
+[Agent] 31: [N, S, N, SE, SE, NE, SE, NE, SE, N, NW, E, E, NW, NW, E, S, NE, W, NE, NW, NE, N, S, NW, W, N, N, W, E, NE, S, N, NE, N, S, E, N, SE, NW, SE, SW, N, E, SW, SE, SE, E, SE, W, SW, NE, SE, N, W, E, E, NE] | Score = 105
+[Agent] 32: [SE, S, NE, SE, E, NE, SW, NW, N, NE, NW, NE, E, NW, S, E, S, NW, W, S, SE, N, S, S, NW, W, N, N, SE, E, NW, S, NE, NW, NE, S, E, N, SW, NW, NE, SW, W, W, SW, SW, SE, SW, SE, SE, SW, NE, S, N, W, S, SW, N] | Score = 1270
+[Agent] 33: [SE, SW, N, SE, S, NE, SE, NE, SE, NE, NW, NE, E, N, NW, SE, S, NW, S, NE, SW, W, NW, S, NE, SE, N, NW, W, W, NW, W, NE, S, SE, SE, W, NE, SE, SW, SE, S, N, E, S, SE, N, SE, SE, S, SW, NE, S, N, W, W, E, E] | Score = 70
+[Agent] 34: [S, S, N, SE, SE, W, SW, NE, SE, S, N, E, SW, N, E, SE, S, NW, S, NW, E, W, N, N, NE, E, N, N, W, NW, NE, S, SW, NE, N, S, SW, SE, SE, SW, SE, S, N, NE, W, NE, N, SW, SE, W, SW, NW, NW, S, N, E, E, S] | Score = 1190
+[Agent] 35: [N, S, E, S, SE, W, SE, E, N, W, SW, SW, SW, E, SE, S, E, NE, W, N, N, SE, S, NE, SE, NE, N, SW, N, SE, E, W, W, N, NE, SE, N, E, SW, SE, NE, SW, N, NW, SE, SE, SE, NW, NE, SE, NW, SW, SE, S, E, E, SE, E] | Score = 1210
+[Agent] 36: [NW, E, E, S, NW, SW, S, NE, E, NW, S, SE, NE, NE, E, E, NE, S, W, S, SW, S, S, N, S, W, NE, W, S, W, E, SE, NE, N, NE, W, NE, N, NW, W, N, SE, NW, SE, NE, NW, N, E, N, W, NW, NW, NE, N, N, S, N, SE] | Score = 50
+[Agent] 37: [SW, SE, NE, E, SE, W, NE, E, SE, W, NW, SE, SW, NE, E, NW, SE, S, W, NE, SW, S, W, E, NW, W, W, N, S, NW, NE, E, SE, S, NW, NE, N, E, N, W, W, NE, E, SE, N, NE, SW, SW, N, N, SE, S, SE, SW, N, S, SE, NW] | Score = 20
+[Agent] 38: [SE, SW, NW, S, S, W, E, S, N, E, SW, NE, S, S, W, E, S, NW, NW, W, N, N, E, S, NE, S, SW, W, SE, SE, NE, W, NE, E, SE, N, NW, SE, NW, NW, NE, N, W, S, N, SE, W, SW, SE, SW, NW, W, NE, S, E, SE, W, S] | Score = 1220
+[Agent] 39: [SE, SW, NE, SE, E, NE, E, W, N, SW, NW, NE, N, SE, S, SE, N, NW, E, N, N, SW, SW, SE, SE, N, S, N, N, SE, SW, S, NW, SW, NE, S, SW, E, SW, S, W, S, N, E, NE, SE, SE, NW, SE, SW, NW, NE, SE, SW, NW, SE, W, E] | Score = 1155
+[Agent] 40: [E, SE, SE, E, NW, SW, SE, E, E, NE, SW, SE, N, NE, E, E, NW, S, S, NE, SW, S, SW, SW, NE, S, E, W, S, W, NE, SE, SE, NE, SE, NE, N, N, N, W, SE, SE, SW, N, NW, E, N, E, NE, SW, SE, SE, N, NW, W, S, N, NW] | Score = 70
+[Agent] 41: [N, SE, SE, SW, SE, W, NW, NE, SE, W, NE, SW, SE, E, S, SE, SE, W, SE, N, S, SE, N, S, W, W, SW, N, N, NW, NE, E, NW, NW, N, NE, W, NE, SW, S, SE, SE, NE, E, NE, NE, SE, NW, NE, SW, NW, SW, SW, W, SW, E, SE, E] | Score = 1235
+[Agent] 42: [S, SE, NW, SE, E, N, SE, SE, SE, S, N, SE, N, E, E, NW, E, NW, S, NW, SW, NE, NW, NW, E, S, W, SW, SE, E, NW, NE, N, NW, SE, S, SW, NE, W, SE, SE, NE, W, NE, NW, NE, N, SE, SW, NE, NW, NE, S, S, N, SE, E, S] | Score = 110
+[Agent] 43: [SW, NW, SE, E, SE, NW, NE, E, S, N, SW, N, E, NE, E, N, E, SE, W, NE, SW, S, SE, E, NW, S, W, SW, SE, W, W, SE, NW, N, NW, NE, N, N, N, N, SE, SE, S, NE, NW, E, SE, SW, SW, E, SE, NE, N, NW, N, S, NE, N] | Score = 1305
+[Agent] 44: [SE, N, NW, SE, S, NE, NE, S, N, NE, SW, N, NW, SW, N, S, S, NW, NW, W, NE, N, N, NE, NE, S, NE, W, SW, S, NE, SE, NE, E, SE, S, N, SE, E, NW, E, E, W, NE, N, SE, W, NW, SE, E, W, NW, S, SW, E, SE, SW, E] | Score = 130
+[Agent] 45: [SE, SE, NW, S, SE, N, SE, E, N, NE, NW, N, N, NW, E, E, S, NW, W, W, S, S, S, SW, NE, W, NE, W, S, NW, NE, W, W, NW, SE, S, N, SE, SE, W, W, SW, W, SE, N, NE, W, SW, SE, SW, NW, SW, SE, SW, W, S, SW, S] | Score = 1380
+[Agent] 46: [N, W, NW, NE, SE, NE, SE, SW, W, E, W, SE, SW, E, E, E, NE, NE, E, N, N, E, N, E, NW, NE, SW, NW, W, W, SW, S, NW, SE, SE, S, NE, E, SW, SW, SE, NW, N, E, S, E, N, W, N, NE, NW, S, NE, N, SW, SE, NE, NW] | Score = 1320
+[Agent] 47: [S, SW, NE, SE, NW, NW, E, E, S, NE, NW, N, N, NE, S, SE, E, NW, NW, NE, S, E, NE, S, NW, S, E, SW, SE, E, NW, NE, NW, S, NE, S, W, N, SE, NW, NW, SW, N, E, S, SE, S, NW, SE, E, SW, NE, S, SW, S, W, E, N] | Score = 150
+[Agent] 48: [E, N, W, S, SE, SW, SE, E, E, NE, S, SE, N, N, E, E, NE, S, S, S, NW, S, SW, N, S, W, E, SW, SE, W, E, S, NE, NE, NE, S, N, N, NW, W, N, SE, NW, SE, NE, NW, N, W, NE, W, NW, SE, NE, W, N, S, SE, NE] | Score = 1280
+[Agent] 49: [NE, SW, NE, SE, E, SE, SE, E, E, S, NE, NE, E, NW, E, W, E, N, S, NW, E, NE, N, NW, E, SW, NE, E, NE, NW, E, S, SW, NW, N, S, W, SW, E, W, SE, NE, S, NE, NE, NE, SE, SW, E, W, S, S, SW, S, SW, SW, E, S] | Score = 200
+
+
+Found path :)
+
+[[0, 0], [1, 1], [0, 1], [0, 0], [1, 1], [1, 2], [0, 3], [1, 4]]
+
+//// A* algorithm Execution ////
+
+Current cell= [0, 0]
+
+Current cell= [1, 1]
+
+Current cell= [1, 2]
+
+Current cell= [0, 3]
+
+Path cells: [0, 0] [1, 1] [1, 2] [0, 3] [1, 4] 
+
