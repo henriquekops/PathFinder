@@ -73,11 +73,11 @@ public class AStarAlgorithm {
         // source is a free cell
         this.walkableCells.add(sourceCell);
 
-        System.out.println("\n//// A* algorithm Execution ////");
+        System.out.print("\n\n//// A* algorithm Execution ////");
+        logger.log("\n\n//// A* algorithm Execution ////");
+
         // while there are free cells to walk through
         while (!walkableCells.isEmpty()) {
-            showCells("Free", this.walkableCells); // TODO: remove
-            showCells("Closed", this.chosenCells); // TODO: remove
 
             // get best walkable cell using first as pivot
             currCell = getBestFreeCell(this.walkableCells.get(0));
@@ -94,8 +94,6 @@ public class AStarAlgorithm {
 
             // get current cell's neighbours
             List<Cell> neighbourCells = getCellNeighbours(currCell, mazeSize);
-
-            showCells("Neighbours", neighbourCells);
 
             // for every neighbour
             for (Cell neighbour: neighbourCells) {
@@ -117,7 +115,6 @@ public class AStarAlgorithm {
 
                             // if not considered as walkable, do it
                             if (!isAlreadyWalkable(neighbour)) {
-                                logger.log("\n\nAdding neighbour " + neighbour.getCoordinates() + " (Parent: "+ neighbour.previousCell.getCoordinates() + ")");  // TODO: remove
                                 this.walkableCells.add(neighbour);
                             }
                         }
@@ -128,6 +125,17 @@ public class AStarAlgorithm {
         }
         // return path
         retrievePath(currCell);
+    }
+
+    public int heuristicFunction(int fromX, int fromY, int toX, int toY) {
+        int dstX = Math.abs(fromX - toX);
+        int dstY = Math.abs(fromY - toY);
+
+        if (dstX > dstY) {
+            return 14 * dstY + 10 * (dstX - dstY);
+        } else {
+            return 14*dstX + 10 * (dstY-dstX);
+        }
     }
 
     public Cell getBestFreeCell(Cell pivotCell) {
@@ -147,23 +155,6 @@ public class AStarAlgorithm {
         }
         return pivotCell;
     }
-
-    public void showCells(String prefix, List<Cell> cells) {
-        logger.log("\n\n" + prefix + " cells: ");
-        for (Cell cell: cells) {
-            logger.log(cell.getCoordinates() + " ");
-        }
-        logger.log("\n\n");
-    }
-
-    public void printCells(String prefix, List<Cell> cells) {
-        System.out.println(prefix + " cells: ");
-        for (Cell cell: cells) {
-            System.out.print(cell.getCoordinates() + " ");
-        }
-        System.out.println("");
-    }
-
 
     public boolean isAlreadyWalkable(Cell unknownCell) {
         for (Cell cell : this.walkableCells) {
@@ -205,7 +196,7 @@ public class AStarAlgorithm {
         return neighbours;
     }
 
-    public void retrievePath(Cell cell) { // List<Pair<Integer, Integer>>
+    public void retrievePath(Cell cell) {
         List<Cell> bestMazePath = new ArrayList<>();
         bestMazePath.add(cell);
 
@@ -215,17 +206,17 @@ public class AStarAlgorithm {
         }
         Collections.reverse(bestMazePath);
         showCells("Path", bestMazePath);
-        printCells("Path", bestMazePath);
     }
 
-    public int heuristicFunction(int fromX, int fromY, int toX, int toY) {
-        int dstX = Math.abs(fromX - toX);
-        int dstY = Math.abs(fromY - toY);
-
-        if (dstX > dstY) {
-            return 14 * dstY + 10 * (dstX - dstY);
-        } else {
-            return 14*dstX + 10 * (dstY-dstX);
+    public void showCells(String prefix, List<Cell> cells) {
+        System.out.print("\n\n" + prefix + " cells: ");
+        logger.log("\n\n" + prefix + " cells: ");
+        for (Cell cell: cells) {
+            System.out.print(cell.getCoordinates() + " ");
+            logger.log(cell.getCoordinates() + " ");
         }
+        System.out.print("\n\n");
+        logger.log("\n\n");
     }
+
 }

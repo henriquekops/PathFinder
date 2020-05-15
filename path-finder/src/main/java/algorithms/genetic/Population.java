@@ -81,9 +81,6 @@ public class Population {
         int numAgentMutations = (int)Math.ceil(numAgents*(agentMutationRatio/100.0));
         int numMovementMutations = (int)Math.ceil(numAgentMoves*(movementMutationRatio/100.0));
 
-        logger.log("\n\n[MUTATION] Agent mutation ratio: " + numAgentMutations);
-        logger.log("\n\n[MUTATION] Movement mutation ratio: " + numMovementMutations);
-
         List<Integer> availableAgentIndexes = IntStream.rangeClosed(0, numAgents - 1)
                 .boxed()
                 .collect(Collectors.toList());
@@ -91,8 +88,6 @@ public class Population {
         for (int numAgentMutation = 0; numAgentMutation < numAgentMutations; numAgentMutation++) {
             agentIdx = availableAgentIndexes.remove(random.nextInt((numAgentIdxRange--)-1))+1;
             Agent mutantAgent = agents.get(agentIdx);
-
-            logger.log("\n\n[MUTATION] Agent entry: " + mutantAgent.toString());
 
             for (int numMoveMutation = 0; numMoveMutation <= numMovementMutations; numMoveMutation++) {
 
@@ -111,8 +106,6 @@ public class Population {
 
                 mutantAgent.getMoves().set(currMoveIdx, newMove);
             }
-
-            logger.log("\n\n[MUTATION] Agent out: " + mutantAgent.toString());
         }
     }
 

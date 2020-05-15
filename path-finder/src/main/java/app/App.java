@@ -37,7 +37,6 @@ public class App {
         String numAgentsString = "3";
         String agentMutationRatioString = "60";
         String movementMutationRatioString = "1";
-        boolean debug = false;
 
         try {
             CommandLine cmdLine = parser.parse(options, args);
@@ -60,7 +59,6 @@ public class App {
                 if (cmdLine.hasOption("a")) numAgentsString = cmdLine.getOptionValue("a");
                 if (cmdLine.hasOption("ar")) agentMutationRatioString = cmdLine.getOptionValue("ar");
                 if (cmdLine.hasOption("mr")) movementMutationRatioString = cmdLine.getOptionValue("mr");
-                debug = cmdLine.hasOption("d");
             }
 
         }
@@ -78,7 +76,7 @@ public class App {
 
 
         Logger logger = Logger.getInstance();
-        logger.setLoggerObject(logFilePathString, debug);
+        logger.setLoggerObject(logFilePathString);
 
         int numGenerations = Integer.parseInt(numGenerationString);
         int numAgents = Integer.parseInt(numAgentsString);
@@ -104,6 +102,8 @@ public class App {
             AStarAlgorithm aStarAlgorithm = new AStarAlgorithm(in, out);
             aStarAlgorithm.findPath(maze, mazeSize);
         }
+
+        logger.close();
     }
 
     public static Options generateOptions() {
@@ -147,7 +147,6 @@ public class App {
         options.addOption(moveMutRatio);
         options.addOption(logFile);
 
-        options.addOption("d", "debug", false, "turn on debugging [OPTIONAL]");
         options.addOption("h", "help", false, "show help");
 
         return options;
