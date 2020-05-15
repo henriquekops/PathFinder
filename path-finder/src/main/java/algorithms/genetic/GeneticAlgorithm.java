@@ -37,7 +37,7 @@ public class GeneticAlgorithm {
         for (int generation = 0; generation < numGenerations; generation++) {
 
             logger.log("\n\n//// Generation: " + (generation));
-            System.out.println("\n\n//// Generation: " + (generation));
+            System.out.println("//// Generation: " + (generation));
 
             logger.log("\n\n" + originalPopulation.toString());
 

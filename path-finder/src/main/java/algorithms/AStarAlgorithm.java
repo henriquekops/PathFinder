@@ -156,6 +156,15 @@ public class AStarAlgorithm {
         logger.log("\n\n");
     }
 
+    public void printCells(String prefix, List<Cell> cells) {
+        System.out.println(prefix + " cells: ");
+        for (Cell cell: cells) {
+            System.out.print(cell.getCoordinates() + " ");
+        }
+        System.out.println("");
+    }
+
+
     public boolean isAlreadyWalkable(Cell unknownCell) {
         for (Cell cell : this.walkableCells) {
             if (cell.getCoordinates().equals(unknownCell.getCoordinates())) {
@@ -206,6 +215,7 @@ public class AStarAlgorithm {
         }
         Collections.reverse(bestMazePath);
         showCells("Path", bestMazePath);
+        printCells("Path", bestMazePath);
     }
 
     public int heuristicFunction(int fromX, int fromY, int toX, int toY) {
