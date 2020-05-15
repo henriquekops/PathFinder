@@ -101,6 +101,15 @@ public class App {
         if (!solution.equals(Pair.with(-1, -1))) {
             int[] in = new int[]{0,0};
             int[] out = new int[]{solution.getValue0(), solution.getValue1()};
+            System.out.println(solution);
+
+            for(int i=0; i<10; i++){
+                for(int j=0; j<10; j++){
+                    System.out.print(maze[i][j]);
+                }
+                System.out.println("");
+            }
+
             AStarAlgorithm aStarAlgorithm = new AStarAlgorithm(in, out);
             aStarAlgorithm.findPath(maze, mazeSize);
         }
