@@ -99,6 +99,7 @@ public class App {
         if (!solution.equals(Pair.with(-1, -1))) {
             int[] in = new int[]{0,0};
             int[] out = new int[]{solution.getValue0(), solution.getValue1()};
+
             AStarAlgorithm aStarAlgorithm = new AStarAlgorithm(in, out);
             aStarAlgorithm.findPath(maze, mazeSize);
         }

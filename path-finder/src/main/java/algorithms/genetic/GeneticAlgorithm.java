@@ -38,8 +38,8 @@ public class GeneticAlgorithm {
         
         for (int generation = 0; generation < numGenerations; generation++) {
 
-            System.out.print("\n\n//// Generation: " + generation + "\n");
-            logger.log("\n\n//// Generation: " + generation + "\n");
+            System.out.print("\n//// Generation: " + generation + "\n");
+            logger.log("\n//// Generation: " + generation + "\n");
 
             // heuristic
             heuristicFunction(originalPopulation, maze, mazeSize);

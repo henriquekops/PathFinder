@@ -99,7 +99,7 @@ public class AStarAlgorithm {
             for (Cell neighbour: neighbourCells) {
 
                 // if it wasn't already chosen
-                if (!this.chosenCells.contains(neighbour)) {
+                if (!contains(chosenCells,neighbour)){
                     char mazeObjectAtNeighbour = maze[neighbour.X][neighbour.Y];
 
                     // if its walkable
@@ -134,8 +134,20 @@ public class AStarAlgorithm {
         if (dstX > dstY) {
             return 14 * dstY + 10 * (dstX - dstY);
         } else {
-            return 14*dstX + 10 * (dstY-dstX);
+            return 14 * dstX + 10 * (dstY - dstX);
         }
+    }
+
+    public boolean contains(List<Cell> chosen, Cell neighbour) {
+        boolean contains = false;
+
+        for(int cell=0; cell<chosen.size(); cell++){
+            if(chosen.get(cell).getCoordinates().equals(neighbour.getCoordinates())){
+                contains = true;
+                break;
+            }
+        }
+        return contains;
     }
 
     public Cell getBestFreeCell(Cell pivotCell) {
@@ -218,5 +230,4 @@ public class AStarAlgorithm {
         System.out.print("\n\n");
         logger.log("\n\n");
     }
-
 }
